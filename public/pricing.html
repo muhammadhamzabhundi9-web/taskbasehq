@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — TaskBase HQ</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#060810;font-family:'Outfit',sans-serif;color:#f1f5f9;min-height:100vh;padding:40px 16px}
+.wrap{max-width:680px;margin:0 auto;text-align:center}
+.logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:40px;text-decoration:none}
+.logo-box{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff}
+.logo-name{color:#fff;font-size:20px;font-weight:900}
+h1{color:#fff;font-size:28px;font-weight:900;margin-bottom:8px}
+.sub{color:#475569;font-size:15px;margin-bottom:32px}
+.badge{display:inline-block;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#10b981;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:32px}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:500px){.plans{grid-template-columns:1fr}}
+.plan{background:#080b14;border:1px solid rgba(255,255,255,0.06);border-radius:18px;padding:28px 22px;text-align:left}
+.plan.featured{border-color:rgba(59,130,246,0.3);background:rgba(59,130,246,0.04);position:relative}
+.recommended{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;font-size:10px;font-weight:800;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.plan-label{color:#94a3b8;font-size:11px;font-weight:700;margin-bottom:8px}
+.plan-price{color:#fff;font-size:38px;font-weight:900;line-height:1}
+.plan-period{color:#475569;font-size:13px;margin-bottom:4px}
+.plan-monthly{color:#10b981;font-size:12px;font-weight:700;margin-bottom:16px}
+.features{list-style:none;margin-bottom:20px}
+.features li{color:#94a3b8;font-size:13px;padding:5px 0;display:flex;align-items:center;gap:8px}
+.features li span{color:#10b981;font-size:11px}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Outfit',sans-serif;text-align:center;text-decoration:none;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;box-shadow:0 4px 15px rgba(59,130,246,0.25)}
+.btn-secondary{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#fff}
+.guarantee{color:#475569;font-size:12px;margin-top:8px;text-align:center}
+.footer-note{color:#334155;font-size:12px;margin-top:24px}
+.back{display:inline-block;color:#475569;font-size:13px;text-decoration:none;margin-top:24px}
+.back:hover{color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/" class="logo">
+    <div class="logo-box">TB</div>
+    <div class="logo-name">TaskBase HQ</div>
+  </a>
+
+  <div class="badge">🎉 50 Free Credits — No Credit Card Required</div>
+  <h1>Simple, Transparent Pricing</h1>
+  <p class="sub">All 30+ AI tools included. Cancel anytime.</p>
+
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-label">MONTHLY</div>
+      <div class="plan-price">$9.99</div>
+      <div class="plan-period">/month</div>
+      <ul class="features">
+        <li><span>✓</span> All 30+ AI tools</li>
+        <li><span>✓</span> Unlimited generations</li>
+        <li><span>✓</span> Commercial license</li>
+        <li><span>✓</span> Priority support</li>
+        <li><span>✓</span> New tools monthly</li>
+      </ul>
+      <a href="https://hamzabhundi.gumroad.com/l/taskbasehq" target="_blank" class="btn btn-secondary">Get Monthly →</a>
+    </div>
+
+    <div class="plan featured">
+      <div class="recommended">⭐ BEST VALUE</div>
+      <div class="plan-label">YEARLY</div>
+      <div class="plan-price">$79.99</div>
+      <div class="plan-period">/year</div>
+      <div class="plan-monthly">= $6.67/month • Save 33%</div>
+      <ul class="features">
+        <li><span>✓</span> Everything in Monthly</li>
+        <li><span>✓</span> Unlimited generations</li>
+        <li><span>✓</span> Commercial license</li>
+        <li><span>✓</span> Priority support</li>
+        <li><span>✓</span> Early access to new tools</li>
+      </ul>
+      <a href="https://hamzabhundi.gumroad.com/l/taskbasehq" target="_blank" class="btn btn-primary">Get Yearly — Save 33% →</a>
+    </div>
+  </div>
+
+  <div class="guarantee">🔒 Secure payment via Gumroad • 30-day money-back guarantee</div>
+  <a href="/" class="back">← Back to Home</a>
+</div>
+</body>
+</html>
