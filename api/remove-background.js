@@ -1,5 +1,7 @@
 export const config = { api: { bodyParser: { sizeLimit: '10mb' } } };
 
+import { trackUsage } from './track-api-usage.js';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const { image, replacePrompt } = req.body;
@@ -47,7 +49,10 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: 'Poll failed: ' + errTxt.slice(0, 200) });
           }
         }
-        if (finalImage) return res.status(200).json({ image: finalImage });
+        if (finalImage) {
+          trackUsage('stability').catch(e => console.error('Track:', e));
+          return res.status(200).json({ image: finalImage });
+        }
         return res.status(500).json({ error: 'Generation timeout — try again' });
       }
 
@@ -72,6 +77,7 @@ export default async function handler(req, res) {
 
     const resultBuffer = await response.arrayBuffer();
     const base64 = Buffer.from(resultBuffer).toString('base64');
+    trackUsage('stability').catch(e => console.error('Track:', e));
     return res.status(200).json({ image: base64 });
   } catch (error) {
     return res.status(500).json({ error: error.message });
