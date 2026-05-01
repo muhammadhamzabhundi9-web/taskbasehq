@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>TaskBase HQ — AI Tools Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#060810;font-family:'Outfit',sans-serif;color:#f1f5f9;overflow:hidden;height:100vh}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:4px}
+textarea::placeholder{color:#4a5568!important}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.app{display:flex;height:100vh}
+.sidebar{width:270px;background:#080b14;border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;flex-shrink:0;transition:transform .3s}
+.sh{padding:14px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.lr{display:flex;align-items:center;gap:10px}
+.lb{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff}
+.ln{color:#fff;font-size:15px;font-weight:900}.ls{color:#06b6d4;font-size:8px;font-weight:700;letter-spacing:2px}
+.trial-box{margin-top:10px;padding:8px 10px;border-radius:9px;border:1px solid rgba(16,185,129,0.2);background:rgba(16,185,129,0.06)}
+.trial-row{display:flex;align-items:center;gap:6px}
+.trial-dot{width:6px;height:6px;border-radius:50%;background:#10b981;animation:pulse 2s infinite}
+.trial-text{color:#10b981;font-size:10px;font-weight:700}
+.trial-days{color:#475569;font-size:9px;margin-left:auto}
+.trial-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px}
+.trial-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#10b981,#3b82f6);transition:width .3s}
+.tl{flex:1;overflow-y:auto;padding:6px}
+.tl-l{color:#475569;font-size:9px;font-weight:700;letter-spacing:2px;padding:10px 10px 4px}
+.ti{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:9px;cursor:pointer;transition:all .15s;border:1px solid transparent;margin-bottom:1px}
+.ti:hover{background:rgba(255,255,255,0.025)}.ti.on{border-color:rgba(59,130,246,0.25)}
+.tic{font-size:18px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:7px;background:rgba(255,255,255,0.025);flex-shrink:0}
+.tin{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tid{color:#475569;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-box{padding:10px 12px;border-top:1px solid rgba(255,255,255,0.06)}
+.user-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.user-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.user-name{color:#fff;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.logout-btn{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);color:#ef4444;padding:4px 8px;border-radius:6px;font-size:9px;font-weight:700;cursor:pointer;font-family:inherit}
+.sf{display:flex;gap:5px}
+.sl{flex:1;display:flex;align-items:center;justify-content:center;gap:3px;padding:7px;border-radius:7px;text-decoration:none;font-size:9px;font-weight:700}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.tb{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.06);background:#080b14}
+.mb{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:#94a3b8;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;display:none;align-items:center;justify-content:center}
+.tn{color:#fff;font-size:16px;font-weight:800}.td2{color:#475569;font-size:10px;margin-top:1px}
+.tbg{padding:4px 10px;border-radius:7px;font-size:10px;font-weight:700}
+.ct{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:14px 18px}
+.ib{width:100%;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:11px;padding:12px 14px;color:#fff;font-size:13px;font-family:'Outfit',sans-serif;outline:none;resize:none;line-height:1.6}
+.ib:focus{border-color:rgba(59,130,246,0.35)}
+.ch{display:flex;gap:5px;margin:6px 0;flex-wrap:wrap}
+.cp{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);padding:4px 10px;border-radius:16px;color:#94a3b8;font-size:10px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.cp:hover{background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#3b82f6}
+.br{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.gb{border:none;color:#fff;padding:10px 24px;border-radius:9px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .15s}
+.gb:disabled{opacity:.5;cursor:wait}
+.sb2{background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.06);color:#94a3b8;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif}
+.sb2:hover{background:rgba(255,255,255,0.07);color:#fff}
+.cc{color:#475569;font-size:9px;margin-left:auto}
+.ob{flex:1;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.05);border-radius:12px;overflow-y:auto;position:relative;margin-top:10px}
+.ot{position:sticky;top:0;padding:8px 14px;background:rgba(6,8,16,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;z-index:5}
+.ol{color:#475569;font-size:10px;font-weight:600}
+.os{display:flex;gap:10px}.os span{color:#475569;font-size:9px}
+.oc{padding:18px;animation:fadeIn .3s}
+.oc h1,.oc h2,.oc h3{color:#fff;margin:16px 0 8px}
+.oc h1{font-size:20px;font-weight:900;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px}
+.oc h2{font-size:17px;font-weight:800}.oc h3{font-size:14px;font-weight:700;color:#94a3b8}
+.oc p{color:#cbd5e1;font-size:13px;line-height:1.8;margin:6px 0}
+.oc ul,.oc ol{color:#cbd5e1;font-size:13px;line-height:1.8;padding-left:20px;margin:6px 0}
+.oc strong{color:#fff}.oc em{color:#94a3b8}
+.oc code{background:rgba(59,130,246,0.08);color:#60a5fa;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.oc pre{background:#0a0d16;border:1px solid rgba(255,255,255,0.05);border-radius:9px;padding:14px;margin:10px 0;overflow-x:auto}
+.oc pre code{background:none;color:#e2e8f0;padding:0;font-size:12px;line-height:1.5}
+.oc blockquote{border-left:3px solid #3b82f6;padding:6px 14px;margin:10px 0;background:rgba(59,130,246,0.04);border-radius:0 7px 7px 0}
+.oc hr{border:none;border-top:1px solid rgba(255,255,255,0.05);margin:14px 0}
+.oc table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px}
+.oc th{background:rgba(255,255,255,0.03);color:#fff;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,0.05)}
+.oc td{padding:7px 12px;border:1px solid rgba(255,255,255,0.05);color:#cbd5e1}
+.ov2{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:40}.ov2.show{display:block}
+.upgrade-banner{background:linear-gradient(135deg,rgba(239,68,68,0.1),rgba(245,158,11,0.1));border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:10px 14px;margin:0 6px 6px;display:none}
+.upgrade-banner.show{display:block}
+.upgrade-text{color:#ef4444;font-size:11px;font-weight:700}
+.upgrade-sub{color:#475569;font-size:9px;margin-top:2px}
+.upgrade-btn{display:block;margin-top:8px;background:linear-gradient(135deg,#3b82f6,#06b6d4);border:none;color:#fff;padding:7px;border-radius:7px;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit;width:100%;text-align:center;text-decoration:none}
+.rate-warning{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:8px 12px;margin:8px 0;color:#f59e0b;font-size:11px;font-weight:600;display:none}
+@media(max-width:768px){.sidebar{position:fixed;left:0;top:0;bottom:0;z-index:50;transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.mb{display:flex}.ct{padding:10px 12px}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script>if(window.pdfjsLib)window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+</head>
+<body>
+<div class="app">
+<div class="ov2" id="ov" onclick="toggleSB()"></div>
+<div class="sidebar" id="sb">
+  <div class="sh">
+    <div class="lr"><div class="lb">TB</div><div><div class="ln">TaskBase HQ</div><div class="ls">AI TOOLS PLATFORM</div></div></div>
+    <div class="trial-box" id="trialBox">
+      <div class="trial-row"><div class="trial-dot"></div><span class="trial-text" id="trialText">FREE TRIAL</span><span class="trial-days" id="trialDays">Loading...</span></div>
+      <div class="trial-bar"><div class="trial-fill" id="trialFill" style="width:100%"></div></div>
+    </div>
+  </div>
+  <div class="upgrade-banner" id="upgradeBanner">
+    <div class="upgrade-text">⚠️ Credits Finished!</div>
+    <div class="upgrade-sub">Buy a plan to continue using all tools</div>
+    <a href="https://taskbasehq.com/pricing.html" class="upgrade-btn">Upgrade Now — $9.99/mo</a>
+  </div>
+  <div style="padding:0 6px 6px;display:flex;gap:6px">
+  <button onclick="toggleLibrary()" id="libBtn" style="flex:1;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:#a855f7;padding:8px 11px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px"><span style="font-size:14px">📚</span><span>Library</span></button>
+  <button onclick="openVisionChat()" style="flex:1;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.2);color:#06b6d4;padding:8px 11px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px"><span style="font-size:14px">🤖</span><span>AI Chat</span></button>
+</div>
+  <div class="tl" id="tL"></div>
+  <div class="user-box">
+    <div class="user-row">
+      <div class="user-av" id="userAv">U</div>
+      <div class="user-name" id="userName">Loading...</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    <div class="sf">
+      <a href="https://wa.me/923232108023" target="_blank" class="sl" style="background:rgba(37,211,102,0.05);border:1px solid rgba(37,211,102,0.1);color:#25D366">💬 Support</a>
+      <a href="/" class="sl" style="background:rgba(6,182,212,0.05);border:1px solid rgba(6,182,212,0.1);color:#06b6d4">🏠 Home</a>
+    </div>
+  </div>
+</div>
+<div class="main">
+  <div class="tb">
+    <button class="mb" onclick="toggleSB()">☰</button>
+    <span style="font-size:24px" id="tI">🤖</span>
+    <div style="flex:1"><div class="tn" id="tN">AI Chat Assistant</div><div class="td2" id="tD">Chat with advanced AI</div></div>
+    <div class="tbg" id="tB" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);color:#3b82f6">⚡ Gemini AI</div>
+  </div>
+  <div class="ct">
+    <div style="margin-bottom:10px">
+      <div id="textFileUpload" style="display:none;margin-bottom:10px">
+        <label for="textFileInput" style="display:block;padding:18px;background:rgba(6,182,212,0.05);border:2px dashed rgba(6,182,212,0.3);border-radius:12px;text-align:center;cursor:pointer;transition:all .2s">
+          <div style="font-size:28px;margin-bottom:6px">📄</div>
+          <div style="color:#06b6d4;font-size:13px;font-weight:700">Upload Document (Optional)</div>
+          <div style="color:#475569;font-size:10px;margin-top:3px">PDF, DOCX, TXT — AI will edit/improve based on your instructions</div>
+        </label>
+        <input type="file" id="textFileInput" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" style="display:none" onchange="handleTextFileUpload(event)" />
+        <div id="textFilePreview"></div>
+      </div>
+      <div id="fileUpload" style="display:none;margin-bottom:10px">
+        <label for="fileInput" style="display:block;padding:24px;background:rgba(20,184,166,0.05);border:2px dashed rgba(20,184,166,0.3);border-radius:12px;text-align:center;cursor:pointer;transition:all .2s">
+          <div style="font-size:36px;margin-bottom:8px">📤</div>
+          <div style="color:#14b8a6;font-size:13px;font-weight:700">Click to Upload Image</div>
+          <div style="color:#475569;font-size:10px;margin-top:4px">PNG, JPG, JPEG (max 10MB)</div>
+        </label>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFileUpload(event)" />
+        <div id="filePreview" style="text-align:center;margin-top:10px"></div>
+      </div>
+      <div style="color:#94a3b8;font-size:10px;font-weight:600;margin-bottom:4px">💡 <span id="iL">What do you want to know?</span></div>
+      <textarea class="ib" id="iB" rows="3" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();gen()}" oninput="ucc()"></textarea>
+      <div class="rate-warning" id="rateWarn">⚠️ Daily limit reached. Resets tomorrow!</div>
+      <div class="ch" id="cH"></div>
+      <div class="br">
+        <button class="gb" id="gB" onclick="gen()" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);box-shadow:0 4px 12px rgba(59,130,246,0.2)">⚡ Generate</button>
+        <button class="sb2" onclick="cpO()" id="cpB" style="display:none">📋 Copy</button>
+        <button class="sb2" onclick="dlO()" id="dlB" style="display:none">💾 Download</button>
+        <button class="sb2" onclick="clr()" id="clB" style="display:none">🗑️ Clear</button>
+        <div id="exportButtons" style="display:none;gap:6px;flex-wrap:wrap"></div>
+        <span class="cc" id="cC"></span>
+      </div>
+    </div>
+    <div class="ob" id="oA">
+      <div style="padding:50px 20px;text-align:center"><div style="font-size:42px;margin-bottom:12px;opacity:0.2">✨</div><div style="color:#475569;font-size:13px">Your AI content will appear here</div><div style="color:#334155;font-size:11px;margin-top:4px">Select a tool, type your prompt, hit Generate</div></div>
+    </div>
+  </div>
+</div>
+</div>
+<div id="visionChatOverlay" style="display:none;position:fixed;inset:0;z-index:100;background:#060810;display:none;flex-direction:column">
+  <!-- Header -->
+  <div style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:12px;background:#080b14">
+    <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:18px">🤖</div>
+    <div style="flex:1">
+      <div style="color:#fff;font-size:15px;font-weight:800">TaskBase AI Vision Chat</div>
+      <div style="color:#475569;font-size:10px">Upload files • Create Excel/PDF • Chat in any language</div>
+    </div>
+    <div id="vcCredits" style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.15);color:#06b6d4;font-size:10px;font-weight:700;padding:4px 10px;border-radius:6px"></div>
+    <button onclick="closeVisionChat()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#94a3b8;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;font-family:inherit">✕</button>
+  </div>
+  
+  <!-- Messages area -->
+  <div id="vcMessages" style="flex:1;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:16px">
+    <div style="text-align:center;padding:40px 20px">
+      <div style="font-size:48px;margin-bottom:12px">🤖</div>
+      <div style="color:#fff;font-size:18px;font-weight:800;margin-bottom:8px">TaskBase AI — Your Smart Assistant</div>
+      <div style="color:#94a3b8;font-size:13px;line-height:1.7;max-width:500px;margin:0 auto">Upload any file and ask anything. Create Excel tables, analyze documents, write code — in any language.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px">
+        <span onclick="vcSetPrompt(this.textContent)" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);color:#06b6d4;padding:8px 14px;border-radius:8px;font-size:12px;cursor:pointer">📊 Create attendance Excel for 4 people</span>
+        <span onclick="vcSetPrompt(this.textContent)" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);color:#06b6d4;padding:8px 14px;border-radius:8px;font-size:12px;cursor:pointer">📄 Summarize this PDF</span>
+        <span onclick="vcSetPrompt(this.textContent)" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);color:#06b6d4;padding:8px 14px;border-radius:8px;font-size:12px;cursor:pointer">🖼️ Analyze this image</span>
+        <span onclick="vcSetPrompt(this.textContent)" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);color:#06b6d4;padding:8px 14px;border-radius:8px;font-size:12px;cursor:pointer">💻 Write Python code</span>
+        <span onclick="vcSetPrompt(this.textContent)" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);color:#06b6d4;padding:8px 14px;border-radius:8px;font-size:12px;cursor:pointer">📋 Create invoice template</span>
+        <span onclick="vcSetPrompt(this.textContent)" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);color:#06b6d4;padding:8px 14px;border-radius:8px;font-size:12px;cursor:pointer">🏠 Design media wall for my room</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- File preview -->
+  <div id="vcFilePreview" style="display:none;padding:8px 18px;background:rgba(6,182,212,0.04);border-top:1px solid rgba(6,182,212,0.1)"></div>
+  
+  <!-- Input area -->
+  <div style="padding:14px 18px;border-top:1px solid rgba(255,255,255,0.06);background:#080b14">
+    <!-- File upload bar -->
+    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center">
+      <label for="vcFileInput" style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94a3b8;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer">
+        📎 Upload File
+      </label>
+      <input type="file" id="vcFileInput" accept=".pdf,.docx,.xlsx,.csv,.txt,.png,.jpg,.jpeg,.webp,.gif" style="display:none" onchange="vcHandleFile(event)" />
+      <div style="color:#475569;font-size:10px">PDF, DOCX, Excel, Image, TXT</div>
+      <div id="vcCreditCost" style="margin-left:auto;color:#475569;font-size:10px"></div>
+    </div>
+    <!-- Text input -->
+    <div style="display:flex;gap:8px;align-items:flex-end">
+      <textarea id="vcInput" rows="2" placeholder="Ask anything... create Excel, analyze file, write code, any language..." style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none;resize:none;line-height:1.5" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();vcSend()}" oninput="vcUpdateCost()"></textarea>
+      <button onclick="vcSend()" id="vcSendBtn" style="background:linear-gradient(135deg,#06b6d4,#3b82f6);border:none;color:#fff;width:44px;height:44px;border-radius:10px;cursor:pointer;font-size:18px;flex-shrink:0">➤</button>
+    </div>
+    <div style="color:#475569;font-size:10px;margin-top:6px;text-align:center">Press Enter to send • Shift+Enter for new line</div>
+  </div>
+</div>
+
+<div id="libraryOverlay" style="display:none;position:fixed;inset:0;z-index:100;background:#060810;overflow-y:auto">
+  <div style="max-width:900px;margin:0 auto;padding:24px 18px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div>
+        <h2 style="color:#fff;font-size:22px;font-weight:900;margin:0">📚 My Library</h2>
+        <div style="color:#94a3b8;font-size:12px;margin-top:2px">Your generation history</div>
+      </div>
+      <button onclick="toggleLibrary()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#fff;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:14px;font-family:inherit">✕</button>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:18px;overflow-x:auto;padding-bottom:4px">
+      <button onclick="filterLibrary('all')" id="filtAll" class="lib-filter active">⚡ All</button>
+      <button onclick="filterLibrary('text')" id="filtText" class="lib-filter">📝 Text</button>
+      <button onclick="filterLibrary('image')" id="filtImage" class="lib-filter">🎨 Image</button>
+      <button onclick="filterLibrary('voice')" id="filtVoice" class="lib-filter">🎙️ Voice</button>
+    </div>
+    <div id="libraryList" style="display:grid;gap:10px"></div>
+  </div>
+</div>
+<style>
+.vc-user-msg{background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(59,130,246,0.1));border:1px solid rgba(6,182,212,0.15);border-radius:12px 12px 4px 12px;padding:12px 16px;color:#e2e8f0;font-size:13px;line-height:1.7;align-self:flex-end;max-width:80%}
+.vc-ai-msg{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:12px 12px 12px 4px;padding:14px 16px;color:#cbd5e1;font-size:13px;line-height:1.7;max-width:90%}
+.vc-ai-msg h1,.vc-ai-msg h2,.vc-ai-msg h3{color:#fff;margin:12px 0 6px}
+.vc-ai-msg strong{color:#fff}
+.vc-ai-msg code{background:rgba(59,130,246,0.08);color:#60a5fa;padding:1px 5px;border-radius:3px;font-size:12px}
+.vc-ai-msg pre{background:#0a0d16;border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:12px;margin:8px 0;overflow-x:auto}
+.vc-ai-msg table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+.vc-ai-msg th{background:rgba(255,255,255,0.04);color:#fff;padding:7px 10px;text-align:left;border:1px solid rgba(255,255,255,0.06);font-size:11px}
+.vc-ai-msg td{padding:6px 10px;border:1px solid rgba(255,255,255,0.05);color:#94a3b8}
+.vc-dl-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(6,182,212,0.15),rgba(59,130,246,0.15));border:1px solid rgba(6,182,212,0.3);color:#06b6d4;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;margin-top:10px;font-family:inherit;transition:all .2s}
+.vc-dl-btn:hover{background:linear-gradient(135deg,rgba(6,182,212,0.25),rgba(59,130,246,0.25))}
+.lib-filter{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#94a3b8;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.lib-filter.active{background:linear-gradient(135deg,#a855f7,#3b82f6);color:#fff;border-color:transparent}
+.lib-item{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px 16px;transition:all .2s}
+.lib-item:hover{background:rgba(255,255,255,0.04);border-color:rgba(168,85,247,0.2)}
+.lib-action-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:6px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.lib-action-btn:hover{background:rgba(255,255,255,0.08);transform:translateY(-1px)}
+</style>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, doc, getDoc, updateDoc, increment } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+const app = initializeApp({
+  apiKey:"AIzaSyCBEDDYCZsmHgyqkOpYQeOLqZ9v7eDMvf4",
+  authDomain:"taskbasehq.firebaseapp.com",
+  projectId:"taskbasehq",
+  storageBucket:"taskbasehq.firebasestorage.app",
+  messagingSenderId:"1052144829969",
+  appId:"1:1052144829969:web:ba5734947494298d9d13b0"
+});
+const auth = getAuth(app);
+const db = getFirestore(app);
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.replace('/login.html'); return; }
+  const name = user.displayName || user.email.split('@')[0];
+  document.getElementById('userName').textContent = name;
+  document.getElementById('userAv').textContent = name.charAt(0).toUpperCase();
+  try {
+    const userRef = doc(db, 'users', user.uid);
+    const snap = await getDoc(userRef);
+    
+    if (snap.exists()) {
+      const data = snap.data();
+      const credits = data.credits !== undefined ? data.credits : 0;
+      const plan = data.plan || 'free';
+      const pct = Math.min(100, (credits / 50) * 100);
+      if (plan === 'pro') {
+        // Pro users get 500 credits/month — give them if they have less
+        if (credits < 100) {
+          await updateDoc(userRef, { credits: 500 });
+          window.userCredits = 500;
+        }
+        document.getElementById('trialText').textContent = 'PRO MEMBER';
+        document.getElementById('trialText').style.color = '#3b82f6';
+        document.getElementById('trialDays').textContent = (window.userCredits || credits || 500) + ' credits';
+        document.getElementById('trialFill').style.width = Math.min(100, ((window.userCredits || credits)/500)*100) + '%';
+        document.getElementById('trialFill').style.background = '#3b82f6';
+      } else if (credits > 0) {
+        document.getElementById('trialText').textContent = 'FREE CREDITS';
+        document.getElementById('trialDays').textContent = credits + ' credits left';
+        document.getElementById('trialFill').style.width = pct + '%';
+      } else {
+        document.getElementById('trialText').textContent = 'NO CREDITS';
+        document.getElementById('trialText').style.color = '#ef4444';
+        document.getElementById('trialDays').textContent = 'Upgrade now';
+        document.getElementById('trialFill').style.width = '0%';
+        document.getElementById('trialBox').style.borderColor = 'rgba(239,68,68,0.3)';
+        document.getElementById('upgradeBanner').classList.add('show');
+        document.getElementById('gB').disabled = true;
+      }
+      window.userPlan = plan;
+      window.userCredits = credits;
+      
+      window.trackUsage = async (cost = 1) => {
+        const isPro = window.userPlan === 'pro';
+        // Don't deduct if balance would go negative
+        if ((window.userCredits || 0) < cost) {
+          alert('Insufficient credits! Please upgrade your plan.');
+          return;
+        }
+        await updateDoc(userRef, { credits: increment(-cost) });
+        window.userCredits = (window.userCredits || 0) - cost;
+        const nc = Math.max(0, window.userCredits);
+        document.getElementById('trialDays').textContent = nc + (isPro ? ' credits' : ' credits left');
+        if (isPro) {
+          // Pro user — show progress out of 500
+          document.getElementById('trialFill').style.width = Math.min(100,(nc/500)*100) + '%';
+        } else {
+          document.getElementById('trialFill').style.width = Math.min(100,(nc/50)*100) + '%';
+          if (nc <= 0) {
+            document.getElementById('gB').disabled = true;
+            document.getElementById('upgradeBanner').classList.add('show');
+            document.getElementById('trialText').textContent = 'NO CREDITS';
+            document.getElementById('trialText').style.color = '#ef4444';
+            document.getElementById('trialDays').textContent = 'Upgrade now';
+          }
+        }
+      };
+    }
+  } catch(e) {
+    console.log('Firestore error:', e);
+  }
+  window.logout = async () => {
+    await signOut(auth);
+    window.location.replace('/login.html');
+  };
+
+  // ============ AI VISION CHAT ============
+  let vcHistory = [];
+  let vcFile = null;
+  let vcFileData = null;
+  let vcFileType = null;
+  let vcFileName = null;
+
+  window.openVisionChat = () => {
+    const ov = document.getElementById('visionChatOverlay');
+    ov.style.display = 'flex';
+    // Update credits display
+    const cr = document.getElementById('vcCredits');
+    if (cr) cr.textContent = (window.userCredits || 0) + ' credits';
+    document.getElementById('vcInput').focus();
+  };
+
+  window.closeVisionChat = () => {
+    document.getElementById('visionChatOverlay').style.display = 'none';
+  };
+
+  window.vcSetPrompt = (text) => {
+    document.getElementById('vcInput').value = text;
+    document.getElementById('vcInput').focus();
+    vcUpdateCost();
+  };
+
+  window.vcUpdateCost = () => {
+    const input = document.getElementById('vcInput').value.trim();
+    const costEl = document.getElementById('vcCreditCost');
+    if (!costEl) return;
+    let cost = 2; // base text
+    if (vcFile) {
+      if (vcFileType && vcFileType.startsWith('image/')) cost = 10;
+      else cost = 5;
+    }
+    costEl.textContent = 'Cost: ' + cost + ' credits';
+  };
+
+  window.vcHandleFile = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    vcFile = file;
+    vcFileName = file.name;
+    vcFileType = file.type || 'text/plain';
+    const preview = document.getElementById('vcFilePreview');
+    preview.style.display = 'block';
+    preview.innerHTML = '<div style="display:flex;align-items:center;gap:10px"><div style="font-size:20px">' + (vcFileType.startsWith('image/') ? '🖼️' : vcFileType.includes('pdf') ? '📄' : vcFileType.includes('sheet') || file.name.endsWith('.xlsx') || file.name.endsWith('.csv') ? '📊' : '📝') + '</div><div style="flex:1"><div style="color:#06b6d4;font-size:12px;font-weight:700">' + file.name + '</div><div style="color:#475569;font-size:10px">' + (file.size / 1024).toFixed(0) + ' KB</div></div><button onclick="vcClearFile()" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);color:#ef4444;padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit">✕ Remove</button></div>';
+    // Read file as base64
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      vcFileData = e.target.result.split(',')[1];
+    };
+    reader.readAsDataURL(file);
+    vcUpdateCost();
+  };
+
+  window.vcClearFile = () => {
+    vcFile = null; vcFileData = null; vcFileType = null; vcFileName = null;
+    document.getElementById('vcFilePreview').style.display = 'none';
+    document.getElementById('vcFileInput').value = '';
+    vcUpdateCost();
+  };
+
+  window.vcSend = async () => {
+    const input = document.getElementById('vcInput');
+    const msg = input.value.trim();
+    if (!msg && !vcFile) return;
+
+    // Credit check
+    let cost = 2;
+    if (vcFile) cost = vcFileType && vcFileType.startsWith('image/') ? 10 : 5;
+    
+    if (!window.userPlan === 'pro' && (window.userCredits || 0) < cost) {
+      vcAddMsg('system', '⚠️ Insufficient credits. <a href="/pricing.html" style="color:#06b6d4">Upgrade to Pro →</a>');
+      return;
+    }
+
+    const userMsg = msg || '(file uploaded)';
+    input.value = '';
+
+    // Add user message to UI
+    vcAddMsg('user', userMsg + (vcFile ? '<br><span style="font-size:10px;opacity:0.6">📎 ' + vcFileName + '</span>' : ''));
+
+    // Add to history
+    vcHistory.push({ role: 'user', content: userMsg });
+
+    // Show typing indicator
+    const typingId = 'typing_' + Date.now();
+    vcAddMsg('typing', '...', typingId);
+
+    const btn = document.getElementById('vcSendBtn');
+    btn.disabled = true; btn.innerHTML = '⏳';
+
+    try {
+      const body = {
+        messages: vcHistory,
+        fileData: vcFileData || null,
+        fileType: vcFileType || null,
+        fileName: vcFileName || null
+      };
+
+      const r = await fetch('/api/vision-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      // Remove typing indicator
+      const typingEl = document.getElementById(typingId);
+      if (typingEl) typingEl.remove();
+
+      if (!r.ok) {
+        const err = await r.json();
+        throw new Error(err.error || 'API Error: ' + r.status);
+      }
+
+      const data = await r.json();
+      const aiText = data.text || 'No response.';
+
+      // Check for file generation marker
+      const fileMatch = aiText.match(/\[GENERATE_FILE:(\w+):([^\]]+)\]([\s\S]*?)\[\/GENERATE_FILE\]/);
+      let displayText = aiText;
+      let fileBtn = '';
+
+      if (fileMatch) {
+        const fileExt = fileMatch[1];
+        const fName = fileMatch[2];
+        const fileContent = fileMatch[3].trim();
+        displayText = aiText.replace(/\[GENERATE_FILE:[\s\S]*?\[\/GENERATE_FILE\]/g, '');
+        
+        // Store for download
+        window['vcFileGen_' + typingId] = { ext: fileExt, name: fName, content: fileContent };
+        fileBtn = '<br><button class="vc-dl-btn" onclick="vcDownloadFile('' + typingId + '')">⬇️ Download ' + fName + '.' + fileExt + '</button>';
+      }
+
+      // Add AI response
+      vcHistory.push({ role: 'assistant', content: aiText });
+      vcAddMsg('ai', md2h(displayText) + fileBtn);
+
+      // Deduct credits
+      if (window.trackUsage) window.trackUsage(cost);
+      const cr = document.getElementById('vcCredits');
+      if (cr) cr.textContent = Math.max(0, (window.userCredits || 0) - cost) + ' credits';
+
+      // Clear file after first send
+      if (vcFile) vcClearFile();
+
+    } catch (e) {
+      const typingEl = document.getElementById(typingId);
+      if (typingEl) typingEl.remove();
+      vcAddMsg('system', '⚠️ ' + e.message);
+    }
+
+    btn.disabled = false; btn.innerHTML = '➤';
+  };
+
+  window.vcDownloadFile = (id) => {
+    const fd = window['vcFileGen_' + id];
+    if (!fd) return;
+    let content = fd.content;
+    let mimeType = 'text/plain';
+    
+    if (fd.ext === 'xlsx' || fd.ext === 'csv') {
+      // Generate actual Excel/CSV
+      if (window.XLSX && fd.ext === 'xlsx') {
+        const rows = content.split('
+').map(r => r.split(',').map(c => c.trim().replace(/^"|"$/g, '')));
+        const ws = window.XLSX.utils.aoa_to_sheet(rows);
+        const wb = window.XLSX.utils.book_new();
+        window.XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        window.XLSX.writeFile(wb, fd.name + '.xlsx');
+        return;
+      }
+      mimeType = 'text/csv';
+    } else if (fd.ext === 'html') {
+      mimeType = 'text/html';
+    } else if (fd.ext === 'json') {
+      mimeType = 'application/json';
+    }
+    
+    const blob = new Blob([content], { type: mimeType });
+    const u = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = u; a.download = fd.name + '.' + fd.ext;
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(u);
+  };
+
+  window.vcAddMsg = (role, html, id) => {
+    const msgs = document.getElementById('vcMessages');
+    // Remove welcome screen on first message
+    if (msgs.children.length === 1 && msgs.children[0].style.textAlign === 'center') {
+      msgs.innerHTML = '';
+    }
+    const div = document.createElement('div');
+    if (id) div.id = id;
+    if (role === 'user') {
+      div.className = 'vc-user-msg';
+      div.innerHTML = html;
+    } else if (role === 'ai') {
+      div.className = 'vc-ai-msg';
+      div.innerHTML = html;
+    } else if (role === 'typing') {
+      div.className = 'vc-ai-msg';
+      div.innerHTML = '<div style="display:flex;gap:4px"><span style="width:6px;height:6px;background:#06b6d4;border-radius:50%;animation:pulse 1s infinite"></span><span style="width:6px;height:6px;background:#06b6d4;border-radius:50%;animation:pulse 1s .2s infinite"></span><span style="width:6px;height:6px;background:#06b6d4;border-radius:50%;animation:pulse 1s .4s infinite"></span></div>';
+    } else {
+      div.style.cssText = 'text-align:center;color:#94a3b8;font-size:12px;padding:8px';
+      div.innerHTML = html;
+    }
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  };
+
+  // Close vision chat on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (document.getElementById('visionChatOverlay').style.display === 'flex') closeVisionChat();
+    }
+  });
+  
+  // Library functions
+  let libraryFilter = 'all';
+  let libraryItems = [];
+  
+  window.saveToLibrary = async (data) => {
+    try {
+      const { collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+      const libRef = collection(db, 'users', user.uid, 'library');
+      await addDoc(libRef, {
+        ...data,
+        timestamp: serverTimestamp()
+      });
+    } catch(e) {
+      console.log('Save library error:', e);
+    }
+  };
+  
+  window.loadLibrary = async () => {
+    try {
+      const { collection, getDocs, query, orderBy, limit } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+      const libRef = collection(db, 'users', user.uid, 'library');
+      const q = query(libRef, orderBy('timestamp', 'desc'), limit(50));
+      const snap = await getDocs(q);
+      libraryItems = [];
+      snap.forEach(doc => {
+        libraryItems.push({ id: doc.id, ...doc.data() });
+      });
+      renderLibrary();
+    } catch(e) {
+      console.log('Load library error:', e);
+      document.getElementById('libraryList').innerHTML = '<div style="text-align:center;padding:40px;color:#475569">Error loading library</div>';
+    }
+  };
+  
+  window.deleteLibraryItem = async (itemId) => {
+    if (!confirm('Delete this item permanently?')) return;
+    try {
+      const { doc, deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+      await deleteDoc(doc(db, 'users', user.uid, 'library', itemId));
+      libraryItems = libraryItems.filter(i => i.id !== itemId);
+      renderLibrary();
+    } catch(e) {
+      console.log('Delete error:', e);
+      alert('Delete failed');
+    }
+  };
+  
+  window.toggleLibrary = () => {
+    const ov = document.getElementById('libraryOverlay');
+    if (ov.style.display === 'none') {
+      ov.style.display = 'block';
+      if (window.userPlan === 'pro') {
+        window.loadLibrary();
+      } else {
+        document.getElementById('libraryList').innerHTML = '<div style="text-align:center;padding:60px 20px;background:linear-gradient(135deg,rgba(168,85,247,0.05),rgba(59,130,246,0.05));border:1px solid rgba(168,85,247,0.15);border-radius:14px"><div style="font-size:54px;margin-bottom:14px">🔒</div><div style="color:#fff;font-size:18px;font-weight:800;margin-bottom:8px">Library is a Pro Feature</div><div style="color:#94a3b8;font-size:13px;line-height:1.6;margin-bottom:20px;max-width:400px;margin-left:auto;margin-right:auto">Upgrade to Pro to automatically save all your generations — text, images, voices — and access them anytime.</div><a href="/pricing.html" style="display:inline-block;background:linear-gradient(135deg,#a855f7,#3b82f6);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:800">🚀 Upgrade to Pro — $9.99/mo</a></div>';
+      }
+    } else {
+      ov.style.display = 'none';
+    }
+  };
+  
+  window.filterLibrary = (type) => {
+    libraryFilter = type;
+    document.querySelectorAll('.lib-filter').forEach(b => b.classList.remove('active'));
+    document.getElementById('filt' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('active');
+    renderLibrary();
+  };
+  
+  window.renderLibrary = () => {
+    const list = document.getElementById('libraryList');
+    const filtered = libraryFilter === 'all' ? libraryItems : libraryItems.filter(i => i.type === libraryFilter);
+    if (filtered.length === 0) {
+      list.innerHTML = '<div style="text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:12px;opacity:0.3">📚</div><div style="color:#94a3b8;font-size:14px;font-weight:700">No items yet</div><div style="color:#475569;font-size:12px;margin-top:4px">Your generations will appear here</div></div>';
+      return;
+    }
+    list.innerHTML = filtered.map(item => {
+      const date = item.timestamp ? new Date(item.timestamp.seconds * 1000).toLocaleString() : 'Just now';
+      const icon = item.type === 'image' ? '🎨' : item.type === 'voice' ? '🎙️' : '📝';
+      const preview = item.type === 'text' 
+        ? '<div style="color:#cbd5e1;font-size:13px;line-height:1.6;max-height:80px;overflow:hidden;margin-top:8px">' + (item.output || '').slice(0, 200) + '...</div>'
+        : item.type === 'image' && item.output
+        ? '<img src="data:image/png;base64,' + item.output + '" style="max-height:120px;margin-top:8px;border-radius:8px" />'
+        : item.type === 'voice' && item.output
+        ? '<audio controls style="width:100%;margin-top:8px"><source src="data:audio/mpeg;base64,' + item.output + '" type="audio/mpeg"></audio>'
+        : '';
+      
+      // Download buttons based on type
+      let downloadBtns = '';
+      if (item.type === 'text') {
+        downloadBtns = '<button onclick="downloadLibraryItem(\'' + item.id + '\',\'pdf\')" class="lib-action-btn" style="color:#ef4444">📄 PDF</button><button onclick="downloadLibraryItem(\'' + item.id + '\',\'docx\')" class="lib-action-btn" style="color:#3b82f6">📝 Word</button><button onclick="downloadLibraryItem(\'' + item.id + '\',\'txt\')" class="lib-action-btn" style="color:#10b981">💾 Text</button>';
+      } else if (item.type === 'image') {
+        downloadBtns = '<button onclick="downloadLibraryItem(\'' + item.id + '\',\'png\')" class="lib-action-btn" style="color:#ec4899">🖼️ Download Image</button>';
+      } else if (item.type === 'voice') {
+        downloadBtns = '<button onclick="downloadLibraryItem(\'' + item.id + '\',\'mp3\')" class="lib-action-btn" style="color:#8b5cf6">🎙️ Download Audio</button>';
+      }
+      
+      return '<div class="lib-item">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">' +
+          '<div style="flex:1;min-width:0">' +
+            '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">' +
+              '<span style="font-size:16px">' + icon + '</span>' +
+              '<div style="color:#fff;font-size:13px;font-weight:700">' + (item.toolName || 'Generation') + '</div>' +
+            '</div>' +
+            '<div style="color:#94a3b8;font-size:11px;margin-bottom:4px"><strong>Input:</strong> ' + ((item.input || '').slice(0, 100)) + '</div>' +
+            '<div style="color:#475569;font-size:10px">' + date + ' • ' + (item.cost || 0) + ' credits</div>' +
+            preview +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">' + downloadBtns + '</div>' +
+          '</div>' +
+          '<button onclick="deleteLibraryItem(\'' + item.id + '\')" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#ef4444;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:12px;flex-shrink:0">🗑️</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  };
+  
+  window.downloadLibraryItem = (itemId, format) => {
+    const item = libraryItems.find(i => i.id === itemId);
+    if (!item || !item.output) { alert('Item not found'); return; }
+    
+    const baseName = (item.toolName || 'taskbase').replace(/\s+/g,'-').toLowerCase() + '-' + Date.now();
+    
+    if (format === 'png') {
+      const a = document.createElement('a');
+      a.href = 'data:image/png;base64,' + item.output;
+      a.download = baseName + '.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    } else if (format === 'mp3') {
+      const a = document.createElement('a');
+      a.href = 'data:audio/mpeg;base64,' + item.output;
+      a.download = baseName + '.mp3';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    } else if (format === 'pdf' && window.exportPDF) {
+      window.exportPDF(item.output, baseName, item.toolName || 'Document');
+    } else if (format === 'docx' && window.exportDocx) {
+      window.exportDocx(item.output, baseName, item.toolName || 'Document');
+    } else {
+      // Fallback to text
+      const blob = new Blob([item.output], {type: 'text/plain'});
+      const u = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = u; a.download = baseName + '.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(u);
+    }
+  };
+});
+</script>
+<script src="/tools.js"></script>
+</body>
+</html>
