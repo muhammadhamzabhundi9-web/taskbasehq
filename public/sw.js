@@ -1,43 +1,46 @@
-const CACHE_NAME = 'taskbasehq-v1';
-const urlsToCache = [
+const CACHE = 'taskbasehq-v2';
+const STATIC = [
   '/',
-  '/index.html',
+  '/dashboard.html',
+  '/login.html',
+  '/pricing.html',
+  '/tools.js',
+  '/manifest.json',
+  '/favicon.svg'
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE).then(c => c.addAll(STATIC.map(u => new Request(u, {cache:'reload'}))))
+    .catch(() => {}) // Don't fail install if some assets missing
   );
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      )
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
     )
   );
   self.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) return response;
-      return fetch(event.request).then((fetchResponse) => {
-        if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
-          return fetchResponse;
+self.addEventListener('fetch', e => {
+  // Only cache GET requests, skip API calls
+  if (e.request.method !== 'GET') return;
+  if (e.request.url.includes('/api/')) return;
+  if (e.request.url.includes('firebase') || e.request.url.includes('gstatic')) return;
+
+  e.respondWith(
+    fetch(e.request)
+      .then(res => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
         }
-        const responseToCache = fetchResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-        return fetchResponse;
-      }).catch(() => caches.match('/'));
-    })
+        return res;
+      })
+      .catch(() => caches.match(e.request))
   );
 });
