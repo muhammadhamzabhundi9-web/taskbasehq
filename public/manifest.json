@@ -1,0 +1,39 @@
+{
+  "name": "TaskBase HQ — 46+ AI Tools",
+  "short_name": "TaskBase HQ",
+  "description": "46+ Premium AI Tools — Vision AI, Image Generator, Voice, Content & more. $9.99/month.",
+  "start_url": "/dashboard.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#060810",
+  "theme_color": "#3b82f6",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["productivity", "business", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Open Dashboard",
+      "url": "/dashboard.html",
+      "description": "Open TaskBase AI Dashboard"
+    }
+  ]
+}
