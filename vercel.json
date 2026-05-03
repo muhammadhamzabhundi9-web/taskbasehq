@@ -1,0 +1,15 @@
+{
+  "framework": "vite",
+  "functions": {
+    "api/generate.js": { "maxDuration": 30 },
+    "api/generate-image.js": { "maxDuration": 30 },
+    "api/generate-voice.js": { "maxDuration": 30 },
+    "api/vision-chat.js": { "maxDuration": 60 },
+    "api/remove-background.js": { "maxDuration": 30 },
+    "api/upscale-image.js": { "maxDuration": 30 },
+    "api/edit-image.js": { "maxDuration": 30 },
+    "api/gumroad-webhook.js": { "maxDuration": 30 },
+    "api/track-api-usage.js": { "maxDuration": 10 },
+    "api/ticket.js": { "maxDuration": 15 }
+  }
+}
