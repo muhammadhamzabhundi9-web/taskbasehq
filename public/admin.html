@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin - TaskBase HQ</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#060810;color:#f1f5f9;font-family:'Outfit','Segoe UI',sans-serif;padding:20px;min-height:100vh}
+.wrap{max-width:1100px;margin:0 auto}
+h1{font-size:24px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900}
+.login-box{max-width:400px;margin:80px auto;background:#0a0e1a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px}
+.login-box h2{margin-bottom:8px;font-size:20px}
+.login-box p{color:#94a3b8;font-size:13px;margin-bottom:20px}
+input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px;color:#fff;font-family:inherit;font-size:14px;margin-bottom:12px}
+button{width:100%;background:linear-gradient(135deg,#3b82f6,#06b6d4);border:none;color:#fff;padding:12px;border-radius:8px;cursor:pointer;font-weight:700;font-family:inherit;font-size:14px}
+.ticket{background:#0a0e1a;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px;margin-bottom:14px}
+.tk-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.tk-id{font-family:'JetBrains Mono',monospace;font-weight:700;color:#3b82f6;font-size:14px}
+.tk-status{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:800;text-transform:uppercase}
+.st-submitted{background:rgba(59,130,246,0.15);color:#3b82f6}
+.st-progress{background:rgba(245,158,11,0.15);color:#f59e0b}
+.st-resolved{background:rgba(16,185,129,0.15);color:#10b981}
+.tk-meta{color:#94a3b8;font-size:11px;margin-bottom:8px}
+.tk-subj{color:#fff;font-weight:700;font-size:15px;margin-bottom:6px}
+.tk-msg{color:#cbd5e1;font-size:13px;line-height:1.6;background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;margin-bottom:12px;white-space:pre-wrap}
+.tk-actions{display:flex;gap:8px;flex-wrap:wrap}
+.tk-actions button{width:auto;padding:7px 14px;font-size:11px;font-weight:700}
+.btn-progress{background:rgba(245,158,11,0.15);color:#f59e0b;border:1px solid rgba(245,158,11,0.3)}
+.btn-resolve{background:rgba(16,185,129,0.15);color:#10b981;border:1px solid rgba(16,185,129,0.3)}
+.btn-reply{background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3)}
+textarea{width:100%;min-height:100px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:#fff;font-family:inherit;font-size:13px;margin:8px 0;resize:vertical}
+.empty{text-align:center;padding:60px;color:#475569}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat{background:#0a0e1a;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;text-align:center}
+.stat-num{font-size:24px;font-weight:900;color:#fff}
+.stat-lab{color:#94a3b8;font-size:11px;margin-top:4px}
+.refresh{background:rgba(255,255,255,0.05);width:auto;padding:8px 14px;font-size:12px;display:inline-block;margin-bottom:14px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div class="login-box">
+    <h2>🔒 Admin Login</h2>
+    <p>Enter your admin token to manage support tickets.</p>
+    <input type="password" id="token" placeholder="Admin token" />
+    <button onclick="login()">Login</button>
+  </div>
+</div>
+<script>
+let TOKEN = '';
+function login(){
+  const t = document.getElementById('token').value.trim();
+  if(!t){alert('Enter token');return;}
+  TOKEN = t;
+  localStorage.setItem('tb_admin_token', t);
+  loadTickets();
+}
+if(localStorage.getItem('tb_admin_token')){
+  TOKEN = localStorage.getItem('tb_admin_token');
+  loadTickets();
+}
+async function loadTickets(){
+  document.getElementById('app').innerHTML = '<div class="empty">Loading...</div>';
+  try{
+    const r = await fetch('/api/ticket?admin='+encodeURIComponent(TOKEN));
+    if(!r.ok){
+      localStorage.removeItem('tb_admin_token');
+      document.getElementById('app').innerHTML = '<div class="login-box"><h2>❌ Invalid Token</h2><input type="password" id="token" placeholder="Admin token"/><button onclick="login()">Try Again</button></div>';
+      return;
+    }
+    const data = await r.json();
+    renderTickets(data.tickets || []);
+  }catch(e){
+    document.getElementById('app').innerHTML = '<div class="empty">Error loading tickets</div>';
+  }
+}
+function renderTickets(tickets){
+  const submitted = tickets.filter(t=>t.status==='submitted').length;
+  const progress = tickets.filter(t=>t.status==='in_progress').length;
+  const resolved = tickets.filter(t=>t.status==='resolved').length;
+
+  let html = `<h1><div class="logo">TB</div>TaskBase HQ — Admin</h1>
+    <div class="stats">
+      <div class="stat"><div class="stat-num">${tickets.length}</div><div class="stat-lab">Total</div></div>
+      <div class="stat"><div class="stat-num" style="color:#3b82f6">${submitted}</div><div class="stat-lab">New</div></div>
+      <div class="stat"><div class="stat-num" style="color:#f59e0b">${progress}</div><div class="stat-lab">In Progress</div></div>
+      <div class="stat"><div class="stat-num" style="color:#10b981">${resolved}</div><div class="stat-lab">Resolved</div></div>
+    </div>
+    <button class="refresh" onclick="loadTickets()">🔄 Refresh</button>`;
+
+  if(!tickets.length){
+    html += '<div class="empty">📭 No tickets yet</div>';
+  }else{
+    tickets.forEach(t=>{
+      const date = new Date(t.createdAt).toLocaleString();
+      const stClass = t.status==='resolved'?'st-resolved':t.status==='in_progress'?'st-progress':'st-submitted';
+      html += `<div class="ticket">
+        <div class="tk-head">
+          <div>
+            <div class="tk-id">${t.id}</div>
+            <div class="tk-meta">${date} • ${t.category} • ${t.priority}</div>
+          </div>
+          <span class="tk-status ${stClass}">${t.status.replace('_',' ')}</span>
+        </div>
+        <div class="tk-subj">${escapeHtml(t.subject)}</div>
+        <div class="tk-meta">From: <strong style="color:#fff">${escapeHtml(t.name)}</strong> &lt;${escapeHtml(t.email)}&gt;</div>
+        <div class="tk-msg">${escapeHtml(t.message)}</div>
+        ${t.adminReply?`<div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.15);padding:10px;border-radius:8px;margin-bottom:10px"><div style="color:#10b981;font-size:11px;font-weight:700;margin-bottom:4px">YOUR REPLY:</div><div style="color:#cbd5e1;font-size:12px;white-space:pre-wrap">${escapeHtml(t.adminReply)}</div></div>`:''}
+        <div class="tk-actions">
+          <button class="btn-progress" onclick="updateStatus('${t.id}', 'in_progress')">⏳ Mark In Progress</button>
+          <button class="btn-resolve" onclick="resolveTicket('${t.id}')">✅ Resolve & Reply</button>
+          <button class="btn-reply" onclick="replyOnly('${t.id}')">💬 Send Reply</button>
+        </div>
+      </div>`;
+    });
+  }
+  document.getElementById('app').innerHTML = html;
+}
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+async function updateStatus(id, status){
+  if(!confirm('Update status to '+status+'?')) return;
+  await fetch('/api/ticket', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'update',adminToken:TOKEN,id,status})});
+  loadTickets();
+}
+async function resolveTicket(id){
+  const reply = prompt('Enter reply message for customer (will be emailed):');
+  if(!reply) return;
+  await fetch('/api/ticket', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'update',adminToken:TOKEN,id,status:'resolved',adminReply:reply})});
+  alert('✅ Ticket resolved & email sent to customer');
+  loadTickets();
+}
+async function replyOnly(id){
+  const reply = prompt('Enter reply message (will be emailed):');
+  if(!reply) return;
+  await fetch('/api/ticket', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'update',adminToken:TOKEN,id,adminReply:reply,status:'in_progress'})});
+  alert('✅ Reply sent to customer');
+  loadTickets();
+}
+</script>
+</body>
+</html>
