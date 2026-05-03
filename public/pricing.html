@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — TaskBase HQ | 46+ AI Tools</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#060810;font-family:'Outfit',sans-serif;color:#f1f5f9;min-height:100vh;padding:40px 16px}
+.wrap{max-width:1100px;margin:0 auto;text-align:center}
+.logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:40px;text-decoration:none}
+.logo-box{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff}
+.logo-name{color:#fff;font-size:20px;font-weight:900}
+h1{color:#fff;font-size:32px;font-weight:900;margin-bottom:8px}
+.sub{color:#475569;font-size:15px;margin-bottom:12px}
+.badge{display:inline-block;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#10b981;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:32px}
+.toggle{display:flex;gap:8px;justify-content:center;margin-bottom:28px;flex-wrap:wrap}
+.tog-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#475569;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;position:relative}
+.tog-btn.active{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;border-color:transparent}
+.save-tag{position:absolute;top:-8px;right:-8px;background:#10b981;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:24px;text-align:left}
+.plan{background:#080b14;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:24px 20px;position:relative}
+.plan.featured{border-color:rgba(59,130,246,0.35);background:rgba(59,130,246,0.04)}
+.recommended{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;font-size:10px;font-weight:800;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.plan-name{color:#94a3b8;font-size:11px;font-weight:700;margin-bottom:6px;text-transform:uppercase}
+.plan-price{color:#fff;font-size:36px;font-weight:900;line-height:1}
+.plan-period{color:#475569;font-size:13px;margin-bottom:4px}
+.plan-save{color:#10b981;font-size:11px;font-weight:700;margin-bottom:12px}
+.plan-credits{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);color:#3b82f6;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:14px}
+.features{list-style:none;margin-bottom:18px}
+.features li{color:#94a3b8;font-size:12px;padding:4px 0;display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+.features li span{color:#10b981;font-size:10px;flex-shrink:0;margin-top:3px}
+.btn{display:block;width:100%;padding:13px;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Outfit',sans-serif;text-align:center;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;box-shadow:0 4px 15px rgba(59,130,246,0.25)}
+.btn-secondary{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#fff}
+.credit-card{background:#080b14;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:20px;position:relative;text-align:center}
+.credit-card.popular{border-color:rgba(59,130,246,0.35)}
+.pop-tag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;font-size:9px;font-weight:800;padding:3px 10px;border-radius:10px;white-space:nowrap}
+.guarantee{color:#475569;font-size:12px;margin-top:16px}
+.back{display:inline-block;color:#475569;font-size:13px;text-decoration:none;margin-top:24px}
+.back:hover{color:#fff}
+.note{background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:10px;padding:12px 16px;color:#f59e0b;font-size:12px;margin-top:12px;text-align:left;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/" class="logo">
+    <div class="logo-box">TB</div>
+    <div class="logo-name">TaskBase HQ</div>
+  </a>
+  <div class="badge">🎉 50 Free Credits — No Credit Card Required</div>
+  <h1>Simple, Transparent Pricing</h1>
+  <p class="sub">All 46+ AI tools included. Real quality differences per plan.</p>
+
+  <div class="toggle">
+    <button class="tog-btn active" onclick="setView('monthly')">Monthly</button>
+    <button class="tog-btn" onclick="setView('yearly')">Yearly <span class="save-tag">-33%</span></button>
+    <button class="tog-btn" onclick="setView('credits')">Credit Top-ups</button>
+  </div>
+
+  <!-- Monthly Plans -->
+  <div id="viewMonthly" class="plans">
+    <div class="plan">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">$0</div>
+      <div class="plan-period">to start</div>
+      <div class="plan-credits">50 credits</div>
+      <ul class="features">
+        <li><span>✓</span> All 46+ AI tools</li>
+        <li><span>✓</span> 50 free credits (one-time)</li>
+        <li><span>✓</span> Standard image quality</li>
+        <li><span>✓</span> Vision AI (1 file/msg)</li>
+        <li><span>✓</span> No credit card needed</li>
+        <li><span>✓</span> Email support</li>
+      </ul>
+      <a href="/login.html" class="btn btn-secondary">Start Free →</a>
+    </div>
+
+    <div class="plan featured">
+      <div class="recommended">⭐ MOST POPULAR</div>
+      <div class="plan-name" style="margin-top:8px">Pro</div>
+      <div class="plan-price">$9.99</div>
+      <div class="plan-period">/month</div>
+      <div class="plan-credits">500 credits/month</div>
+      <ul class="features">
+        <li><span>✓</span> 500 credits/month</li>
+        <li><span>✓</span> All 46+ AI tools</li>
+        <li><span>✓</span> Standard image quality (1MP)</li>
+        <li><span>✓</span> Vision AI Chat (1 file/msg)</li>
+        <li><span>✓</span> Pro Library — save all generations</li>
+        <li><span>✓</span> PDF/Word/Excel export (no watermark)</li>
+        <li><span>✓</span> Email support</li>
+        <li><span>✓</span> Cancel anytime</li>
+      </ul>
+      <a href="https://hamzabhundi.gumroad.com/l/taskbasehq?option=IpupbMoZ-KNWGiKs67cG-w%3D%3D" target="_blank" class="btn btn-primary">Get Pro — $9.99/mo →</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-name">Pro Plus <span style="background:rgba(245,158,11,0.15);color:#f59e0b;font-size:9px;padding:2px 6px;border-radius:4px;margin-left:4px">NEW</span></div>
+      <div class="plan-price">$19.99</div>
+      <div class="plan-period">/month</div>
+      <div class="plan-credits">1,500 credits/month (3x)</div>
+      <ul class="features">
+        <li><span>✓</span> 1,500 credits/month</li>
+        <li><span>✓</span> 🎨 HD Image Quality (4MP — 2x sharper)</li>
+        <li><span>✓</span> 🤖 Vision AI: 5 files per message</li>
+        <li><span>✓</span> 💼 Commercial license</li>
+        <li><span>✓</span> 📞 WhatsApp support</li>
+        <li><span>✓</span> All Pro features included</li>
+      </ul>
+      <a href="https://hamzabhundi.gumroad.com/l/taskbasehq?option=lGeudA1dCJAMMdqKQunQkg%3D%3D" target="_blank" class="btn btn-secondary">Get Pro Plus →</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-name">Pro Max</div>
+      <div class="plan-price">$39.99</div>
+      <div class="plan-period">/month</div>
+      <div class="plan-credits">5,000 credits/month (10x)</div>
+      <ul class="features">
+        <li><span>✓</span> 5,000 credits/month</li>
+        <li><span>✓</span> 🚀 4K Ultra Image Quality (16MP)</li>
+        <li><span>✓</span> 🤖 Vision AI: Unlimited files</li>
+        <li><span>✓</span> 📞 24/7 WhatsApp priority support</li>
+        <li><span>✓</span> 🎯 1-on-1 setup call (Zoom)</li>
+        <li><span>✓</span> All Pro Plus features</li>
+      </ul>
+      <a href="https://hamzabhundi.gumroad.com/l/taskbasehq?option=3w82fLuEcR_BH27136rMIQ%3D%3D" target="_blank" class="btn btn-secondary">Get Pro Max →</a>
+    </div>
+  </div>
+
+  <!-- Yearly Plans -->
+  <div id="viewYearly" class="plans" style="display:none">
+    <div class="plan featured">
+      <div class="recommended">⭐ BEST VALUE — SAVE 33%</div>
+      <div class="plan-name" style="margin-top:8px">Pro Yearly</div>
+      <div class="plan-price">$79.99</div>
+      <div class="plan-period">/year</div>
+      <div class="plan-save">= $6.67/month — Save $40/year</div>
+      <div class="plan-credits">500 credits/month</div>
+      <ul class="features">
+        <li><span>✓</span> 500 credits/month</li>
+        <li><span>✓</span> All Pro Monthly features</li>
+        <li><span>✓</span> Standard image quality</li>
+        <li><span>✓</span> Vision AI Chat</li>
+        <li><span>✓</span> Pro Library</li>
+        <li><span>✓</span> Email support</li>
+      </ul>
+      <a href="https://hamzabhundi.gumroad.com/l/taskbasehq-pro-yearly" target="_blank" class="btn btn-primary">Get Pro Yearly — $79.99 →</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-name">Pro Plus Yearly <span style="background:rgba(245,158,11,0.15);color:#f59e0b;font-size:9px;padding:2px 6px;border-radius:4px;margin-left:4px">NEW</span></div>
+      <div class="plan-price">$199.99</div>
+      <div class="plan-period">/year</div>
+      <div class="plan-save">= $16.67/month — Save 17%</div>
+      <div class="plan-credits">1,500 credits/month</div>
+      <ul class="features">
+        <li><span>✓</span> 1,500 credits/month</li>
+        <li><span>✓</span> 🎨 HD Image Quality</li>
+        <li><span>✓</span> 🤖 5 files per Vision AI msg</li>
+        <li><span>✓</span> 💼 Commercial license</li>
+        <li><span>✓</span> 📞 WhatsApp support</li>
+      </ul>
+      <a href="https://hamzabhundi.gumroad.com/l/taskbasehq-proplus-yearly" target="_blank" class="btn btn-secondary">Get Pro Plus Yearly →</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-name">Pro Max Yearly</div>
+      <div class="plan-price">$399.99</div>
+      <div class="plan-period">/year</div>
+      <div class="plan-save">= $33.33/month — Save 17%</div>
+      <div class="plan-credits">5,000 credits/month</div>
+      <ul class="features">
+        <li><span>✓</span> 5,000 credits/month</li>
+        <li><span>✓</span> 🚀 4K Ultra Quality</li>
+        <li><span>✓</span> 🤖 Unlimited Vision AI files</li>
+        <li><span>✓</span> 📞 24/7 WhatsApp priority</li>
+        <li><span>✓</span> 🎯 1-on-1 setup call</li>
+      </ul>
+      <a href="https://hamzabhundi.gumroad.com/l/taskbasehq-promax-yearly" target="_blank" class="btn btn-secondary">Get Pro Max Yearly →</a>
+    </div>
+  </div>
+
+  <!-- Credit Top-ups -->
+  <div id="viewCredits" class="plans" style="display:none">
+    <div class="credit-card">
+      <div class="plan-name">Starter Pack</div>
+      <div class="plan-price">$2.99</div>
+      <div class="plan-credits" style="margin-top:6px">100 credits</div>
+      <ul class="features" style="margin-top:12px;text-align:left">
+        <li><span>✓</span> 100 AI credits</li>
+        <li><span>✓</span> Never expires</li>
+        <li><span>✓</span> Auto-delivered</li>
+        <li><span>✓</span> Pro plan required</li>
+      </ul>
+      <button onclick="checkAndBuy('https://hamzabhundi.gumroad.com/l/taskbasehq-credits-100')" class="btn btn-secondary">Buy 100 Credits →</button>
+    </div>
+    <div class="credit-card popular">
+      <div class="pop-tag">⭐ BEST VALUE</div>
+      <div class="plan-name" style="margin-top:8px">Popular Pack</div>
+      <div class="plan-price">$9.99</div>
+      <div class="plan-credits" style="margin-top:6px">500 credits</div>
+      <ul class="features" style="margin-top:12px;text-align:left">
+        <li><span>✓</span> 500 AI credits</li>
+        <li><span>✓</span> Never expires</li>
+        <li><span>✓</span> Auto-delivered</li>
+        <li><span>✓</span> Pro plan required</li>
+      </ul>
+      <button onclick="checkAndBuy('https://hamzabhundi.gumroad.com/l/taskbasehq-credits-500')" class="btn btn-primary">Buy 500 Credits →</button>
+    </div>
+    <div class="credit-card">
+      <div class="plan-name">Power Pack</div>
+      <div class="plan-price">$24.99</div>
+      <div class="plan-credits" style="margin-top:6px">1,500 credits</div>
+      <ul class="features" style="margin-top:12px;text-align:left">
+        <li><span>✓</span> 1,500 AI credits</li>
+        <li><span>✓</span> Never expires</li>
+        <li><span>✓</span> Auto-delivered</li>
+        <li><span>✓</span> Pro plan required</li>
+      </ul>
+      <button onclick="checkAndBuy('https://hamzabhundi.gumroad.com/l/taskbasehq-credits-1500')" class="btn btn-secondary">Buy 1,500 Credits →</button>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong style="color:#f59e0b">⚠️ Credit Top-up Rules:</strong><br>
+    • Active Pro, Pro Plus, or Pro Max subscription required<br>
+    • Free users must subscribe to Pro first<br>
+    • Credits never expire — use anytime<br>
+    • Auto-delivered to your account within minutes
+  </div>
+
+  <div class="guarantee">🔒 Secure payment via Gumroad • 30-day money-back guarantee (terms apply) • Cancel anytime</div>
+  <a href="/" class="back">← Back to Home</a>
+</div>
+
+<script>
+function setView(v){
+  ['Monthly','Yearly','Credits'].forEach(x=>{document.getElementById('view'+x).style.display='none';});
+  document.getElementById('view'+v.charAt(0).toUpperCase()+v.slice(1)).style.display='grid';
+  document.querySelectorAll('.tog-btn').forEach((b,i)=>{b.classList.toggle('active',['monthly','yearly','credits'][i]===v);});
+}
+function checkAndBuy(link){
+  const plan = localStorage.getItem('tb_user_plan') || '';
+  const isPaid = ['pro','proplus','promax'].includes(plan);
+  if(!plan){
+    alert("⚠️ Please login first.\n\nCredits require an active Pro plan. Sign up first, then subscribe to Pro.");
+    window.location.href = '/login.html';
+    return;
+  }
+  if(!isPaid){
+    alert("⚠️ Pro plan required!\n\nYou need an active Pro/Plus/Max subscription to purchase credits.\n\nSubscribe to Pro first ($9.99/mo), then come back to buy extra credits.");
+    return;
+  }
+  window.open(link, '_blank');
+}
+</script>
+</body>
+</html>
