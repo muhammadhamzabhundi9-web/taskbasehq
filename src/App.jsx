@@ -176,6 +176,7 @@ function Nav({page,go,setInstall}){
           <span style={{color:T.muted,fontSize:14,fontWeight:600}}>📱 Mobile App</span>
           <span style={{background:"rgba(245,158,11,0.1)",color:"#f59e0b",fontSize:10,fontWeight:800,padding:"3px 8px",borderRadius:6}}>COMING SOON</span>
         </div>
+        <button onClick={()=>window.location.href="/blog/"} style={{display:"block",width:"100%",textAlign:"left",background:"transparent",border:"none",color:T.muted,padding:"11px 14px",borderRadius:8,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:T.font}}>📝 Blog</button>
         <div style={{borderTop:`1px solid ${T.border}`,margin:"4px 0"}}/>
         <button onClick={()=>{window.location.href="/login.html";}} style={{display:"block",width:"100%",textAlign:"left",background:`${T.accent}12`,border:"none",color:T.accent,padding:"11px 14px",borderRadius:8,fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:T.font}}>🔑 Login / Sign Up</button>
       </div>}
