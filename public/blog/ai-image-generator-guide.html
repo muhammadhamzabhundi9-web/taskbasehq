@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>How to Create Professional AI Images — Step-by-Step Guide 2026 | TaskBase HQ</title>
+<meta name="description" content="Learn how to generate stunning professional AI images in 2026. Complete beginner to advanced guide covering prompts, styles, tools, and commercial use.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#060810;font-family:'Outfit',sans-serif;color:#f1f5f9;line-height:1.8}
+.nav{padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:12px;background:#080b14}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.lb{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff}
+.ln{color:#fff;font-size:16px;font-weight:900}
+.nav-links{margin-left:auto;display:flex;gap:16px}
+.nav-links a{color:#94a3b8;text-decoration:none;font-size:13px;font-weight:600}
+.wrap{max-width:780px;margin:0 auto;padding:40px 24px 80px}
+.breadcrumb{color:#475569;font-size:12px;margin-bottom:24px}
+.breadcrumb a{color:#3b82f6;text-decoration:none}
+h1{font-size:36px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:16px}
+.meta{display:flex;gap:16px;color:#475569;font-size:13px;margin-bottom:32px;flex-wrap:wrap}
+.intro{font-size:16px;color:#94a3b8;line-height:1.8;margin-bottom:40px;padding:20px;background:rgba(59,130,246,0.04);border-left:3px solid #3b82f6;border-radius:0 12px 12px 0}
+h2{font-size:24px;font-weight:800;color:#fff;margin:40px 0 16px}
+h3{font-size:18px;font-weight:700;color:#e2e8f0;margin:24px 0 10px}
+p{color:#94a3b8;font-size:15px;line-height:1.8;margin-bottom:16px}
+.step-box{background:#080b14;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:24px;margin:20px 0;position:relative;padding-left:70px}
+.step-num{position:absolute;left:20px;top:24px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff}
+.step-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:10px}
+.prompt-box{background:#0a0d16;border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:14px 16px;margin:12px 0;font-family:'JetBrains Mono',monospace;font-size:13px;color:#60a5fa;line-height:1.6}
+.prompt-label{color:#475569;font-size:11px;font-weight:700;margin-bottom:6px}
+.tip-box{background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:16px;margin:16px 0}
+.tip-title{color:#10b981;font-weight:700;margin-bottom:6px;font-size:14px}
+.tip-content{color:#94a3b8;font-size:13px;line-height:1.7}
+.quality-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.quality-card{background:#080b14;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px;text-align:center}
+.quality-card h4{color:#fff;font-size:14px;margin-bottom:6px}
+.quality-card p{font-size:12px;color:#475569;margin:0}
+.quality-card .badge{display:inline-block;font-size:10px;font-weight:800;padding:3px 8px;border-radius:5px;margin-bottom:8px}
+.use-case-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.use-case{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:12px}
+.use-case h4{color:#fff;font-size:13px;font-weight:700;margin-bottom:4px}
+.use-case p{font-size:12px;color:#475569;margin:0;line-height:1.5}
+.cta-box{background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(6,182,212,0.1));border:1px solid rgba(59,130,246,0.2);border-radius:16px;padding:32px;text-align:center;margin:40px 0}
+.cta-box h2{margin:0 0 8px;font-size:22px}
+.cta-btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;padding:13px 28px;border-radius:10px;text-decoration:none;font-weight:800;font-size:15px;margin-top:16px}
+.tag{display:inline-block;background:rgba(168,85,247,0.1);color:#a855f7;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;margin-bottom:8px}
+footer{text-align:center;padding:30px;color:#475569;font-size:12px;border-top:1px solid rgba(255,255,255,0.06)}
+footer a{color:#3b82f6;text-decoration:none}
+@media(max-width:600px){.quality-grid{grid-template-columns:1fr}.use-case-list{grid-template-columns:1fr}.step-box{padding-left:20px}.step-num{display:none}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="logo"><div class="lb">TB</div><span class="ln">TaskBase HQ</span></a>
+  <div class="nav-links"><a href="/">Home</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a></div>
+</nav>
+
+<div class="wrap">
+  <div class="breadcrumb"><a href="/">Home</a> → <a href="/blog/">Blog</a> → AI Image Generation Guide</div>
+  <div class="tag">TUTORIAL</div>
+  <h1>How to Create Professional AI Images — Complete Guide 2026</h1>
+  <div class="meta"><span>📅 May 2026</span><span>⏱️ 7 min read</span><span>✍️ TaskBase HQ Team</span></div>
+
+  <div class="intro">AI image generation has democratized professional design. In 2026, anyone can create stunning, high-quality images — without design skills, expensive software, or professional photographers. This guide teaches you everything from writing effective prompts to choosing the right quality tier for your needs.</div>
+
+  <h2>What is AI Image Generation?</h2>
+  <p>AI image generation uses machine learning models — specifically diffusion models — to create images from text descriptions. You type what you want to see, and the AI generates a unique image based on your description. The results can range from photorealistic photographs to artistic illustrations, logos, product mockups, and more.</p>
+  <p>Modern AI image generators like Stability AI (which powers TaskBase HQ's image tools) can produce images at resolutions up to 4K — comparable to professional photography. In 2026, AI-generated images are being used in marketing campaigns, book covers, social media content, product photography, and architectural visualization.</p>
+
+  <h2>Step-by-Step: Creating Your First AI Image</h2>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <div class="step-title">Choose Your Image Tool</div>
+    <p>TaskBase HQ offers 9 different image generation tools, each optimized for different use cases:</p>
+    <ul style="color:#94a3b8;margin-left:20px;font-size:14px;line-height:2">
+      <li><strong style="color:#fff">AI Image Generator</strong> — General purpose, best for most images</li>
+      <li><strong style="color:#fff">AI Avatar Creator</strong> — Professional headshots and profile pictures</li>
+      <li><strong style="color:#fff">AI Logo & Brand Kit</strong> — Business logos and brand assets</li>
+      <li><strong style="color:#fff">AI Product Photography</strong> — E-commerce product images</li>
+      <li><strong style="color:#fff">AI Thumbnail Maker</strong> — YouTube, blog, and social thumbnails</li>
+      <li><strong style="color:#fff">Background Remover</strong> — Remove backgrounds instantly</li>
+      <li><strong style="color:#fff">AI Photo Enhancer</strong> — Upscale and improve existing photos</li>
+    </ul>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <div class="step-title">Write an Effective Prompt</div>
+    <p>The quality of your AI image depends heavily on how well you describe what you want. A good prompt has several components:</p>
+    <div class="prompt-label">❌ WEAK PROMPT (vague):</div>
+    <div class="prompt-box">a business photo</div>
+    <div class="prompt-label">✅ STRONG PROMPT (detailed):</div>
+    <div class="prompt-box">Professional business woman in her 30s, sitting at a modern glass desk in a minimalist office, wearing a navy blazer, confident smile, shallow depth of field, soft natural window lighting, 4K ultra-realistic photography, Canon EOS R5</div>
+    <p>Notice how the strong prompt specifies: subject description, setting, clothing, expression, photography style, lighting, technical specs. Each detail helps the AI generate exactly what you need.</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <div class="step-title">Master Prompt Components</div>
+    <h3>Subject</h3>
+    <p>Be specific about what you want. Instead of "a dog," try "a golden retriever puppy, 8 weeks old, sitting in autumn leaves."</p>
+    <h3>Style</h3>
+    <p>Specify the visual style: photorealistic, watercolor, oil painting, digital art, minimalist, vintage, corporate, cinematic.</p>
+    <div class="prompt-box">watercolor illustration, soft pastel colors, hand-painted texture, botanical art style</div>
+    <h3>Lighting</h3>
+    <p>Lighting dramatically changes the mood of an image: golden hour, studio lighting, neon lights, candlelight, moonlight, soft diffused light.</p>
+    <div class="prompt-box">dramatic side lighting, long shadows, high contrast, film noir atmosphere</div>
+    <h3>Camera & Technical Terms</h3>
+    <p>Adding photography terms helps achieve specific looks:</p>
+    <div class="prompt-box">85mm lens, f/1.8 aperture, bokeh background, shot on Sony A7IV, RAW format quality</div>
+    <h3>Negative Prompts</h3>
+    <p>Some tools allow you to specify what you DON'T want: blurry, distorted, low quality, extra limbs, watermark.</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">4</div>
+    <div class="step-title">Choose the Right Quality Tier</div>
+    <p>Different use cases require different image qualities. Here's a guide:</p>
+    <div class="quality-grid">
+      <div class="quality-card">
+        <div class="badge" style="background:rgba(59,130,246,0.15);color:#3b82f6">Pro Plan</div>
+        <h4>Standard (1MP)</h4>
+        <p>Social media posts, blog images, internal presentations, rapid prototyping</p>
+      </div>
+      <div class="quality-card">
+        <div class="badge" style="background:rgba(245,158,11,0.15);color:#f59e0b">Pro Plus</div>
+        <h4>HD (4MP)</h4>
+        <p>Marketing materials, website banners, print-ready brochures, client deliverables</p>
+      </div>
+      <div class="quality-card">
+        <div class="badge" style="background:rgba(168,85,247,0.15);color:#a855f7">Pro Max</div>
+        <h4>4K Ultra (16MP)</h4>
+        <p>Large format printing, billboard ads, professional photography replacement, stock imagery</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">5</div>
+    <div class="step-title">Download and Use Your Image</div>
+    <p>Once generated, you can download your image directly in PNG format. With a commercial license (Pro Plus and above), you can use the images for:</p>
+    <div class="use-case-list">
+      <div class="use-case"><h4>💼 Business Marketing</h4><p>Ad campaigns, social media, email newsletters</p></div>
+      <div class="use-case"><h4>🌐 Websites</h4><p>Hero images, blog posts, product pages</p></div>
+      <div class="use-case"><h4>📦 Products</h4><p>E-commerce listings, packaging design</p></div>
+      <div class="use-case"><h4>📱 Social Media</h4><p>Instagram, LinkedIn, Twitter/X content</p></div>
+      <div class="use-case"><h4>📰 Print</h4><p>Brochures, business cards, posters (4K)</p></div>
+      <div class="use-case"><h4>🎨 Creative</h4><p>Book covers, album art, NFTs</p></div>
+    </div>
+  </div>
+
+  <h2>Pro Tips for Better AI Images</h2>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 Tip 1: Use Specific Artists or Styles as References</div>
+    <div class="tip-content">Referencing well-known styles helps: "in the style of minimalist Scandinavian design," "inspired by Bauhaus architecture," "editorial photography like Vogue magazine." This gives the AI a clear aesthetic reference.</div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 Tip 2: Iterate and Refine</div>
+    <div class="tip-content">Your first generation rarely needs to be your last. If the result is 70% there, refine your prompt. Add more detail to what's wrong, or use the AI Photo Editor tool to modify specific elements of an image you like.</div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 Tip 3: Aspect Ratio Matters</div>
+    <div class="tip-content">Specify the aspect ratio in your prompt: "16:9 widescreen landscape," "9:16 vertical for Instagram stories," "1:1 square format." This prevents awkward cropping when you use the image.</div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 Tip 4: Use Background Remover After Generation</div>
+    <div class="tip-content">Generate your product or subject, then use the Background Remover tool to get a clean cutout. This is far faster than manual Photoshop editing and works accurately even on complex edges like hair.</div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 Tip 5: Combine Multiple Tools</div>
+    <div class="tip-content">Generate an image → Enhance with Photo Enhancer → Remove background → Add to your design. Using multiple AI tools in sequence produces professional results that rivals expensive design agencies.</div>
+  </div>
+
+  <h2>Common Mistakes to Avoid</h2>
+  <h3>1. Prompts That Are Too Vague</h3>
+  <p>The AI can't read your mind. "Make it look professional" means nothing — specify exactly what makes something professional in your context: clean lines, corporate colors, business attire, formal setting.</p>
+  <h3>2. Ignoring Quality Tiers</h3>
+  <p>Using Standard quality for print materials will produce pixelated results. Match your quality tier to your use case — save credits on social media posts, use 4K Ultra for anything that will be printed large.</p>
+  <h3>3. Not Iterating</h3>
+  <p>AI image generation is rarely a one-shot process. Professional results come from iterating — generating multiple versions, combining the best elements, and refining your prompts based on results.</p>
+  <h3>4. Overlooking Commercial License Requirements</h3>
+  <p>Always verify commercial licensing before using AI images in paid projects. TaskBase HQ's Pro Plus and Pro Max plans include full commercial licenses for all generated images.</p>
+
+  <h2>Real-World Use Cases</h2>
+  <p><strong style="color:#fff">E-commerce Product Photography:</strong> Generate professional product photos on white backgrounds — eliminating the need for expensive photography sessions. Generate 10 product variations in the time it takes to set up one traditional photoshoot.</p>
+  <p><strong style="color:#fff">Social Media Content:</strong> Create consistent, branded visual content across platforms. Generate 30 unique images for a month of content in under an hour.</p>
+  <p><strong style="color:#fff">Marketing Campaigns:</strong> Test multiple visual concepts rapidly before committing to a final direction. What previously took days of designer time now takes minutes.</p>
+  <p><strong style="color:#fff">Real Estate:</strong> Generate visualizations of interior design concepts, renovation ideas, or staged furniture before making physical changes.</p>
+  <p><strong style="color:#fff">Startup Branding:</strong> Create logos, brand assets, and marketing materials without hiring a design agency — particularly valuable for early-stage companies with limited budgets.</p>
+
+  <h2>Getting Started with AI Image Generation</h2>
+  <p>The barrier to entry for professional AI image generation has never been lower. With platforms like TaskBase HQ offering 50 free credits to try all 9 image tools — no credit card required — there's no reason not to start experimenting today.</p>
+  <p>The learning curve is shorter than you might expect. Most users produce impressive results within their first 10 generations, as the iterative process of refining prompts becomes intuitive quickly.</p>
+
+  <div class="cta-box">
+    <h2>Start Creating AI Images Free</h2>
+    <p>50 free credits — access all 9 image tools plus Vision AI Chat, voice generation, and 36+ more tools. No credit card required.</p>
+    <a href="/login.html" class="cta-btn">Try Free — No Credit Card →</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 TaskBase HQ • <a href="/">taskbasehq.com</a> • <a href="/privacy.html">Privacy</a> • <a href="/terms.html">Terms</a> • <a href="/blog/">Blog</a></p>
+</footer>
+</body>
+</html>
