@@ -165,7 +165,7 @@ function Nav({page,go,setInstall}){
           <div><div style={{color:"#fff",fontSize:14,fontWeight:900,letterSpacing:-0.3,lineHeight:1}}>TaskBase HQ</div><div style={{color:T.cyan,fontSize:8,fontWeight:700,letterSpacing:1.5}}>46+ AI TOOLS • ONE PRICE</div></div>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:6}}>
-          <button onClick={()=>go(PAGES.LOGIN)} style={{background:"rgba(255,255,255,0.05)",border:`1px solid ${T.border}`,color:T.text,padding:"7px 14px",borderRadius:8,fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:T.font,display:"none"}} id="navLoginBtn">Login</button>
+          <button onClick={()=>window.location.href="/login.html"} style={{background:"rgba(255,255,255,0.05)",border:`1px solid ${T.border}`,color:T.text,padding:"7px 14px",borderRadius:8,fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:T.font}} id="navLoginBtn">Login</button>
           <button onClick={()=>go(PAGES.PRICING)} style={{...bs(`linear-gradient(135deg,${T.accent},${T.cyan})`,`0 4px 14px ${T.accentGlow}`),padding:"7px 16px",fontSize:12}}>Start Free</button>
           <button onClick={()=>setOpen(!open)} style={{background:"rgba(255,255,255,0.05)",border:"none",color:T.muted,width:32,height:32,borderRadius:8,cursor:"pointer",fontSize:15}}>{open?"✕":"☰"}</button>
         </div>
@@ -177,7 +177,7 @@ function Nav({page,go,setInstall}){
           <span style={{background:"rgba(245,158,11,0.1)",color:"#f59e0b",fontSize:10,fontWeight:800,padding:"3px 8px",borderRadius:6}}>COMING SOON</span>
         </div>
         <div style={{borderTop:`1px solid ${T.border}`,margin:"4px 0"}}/>
-        <button onClick={()=>{go(PAGES.LOGIN);setOpen(false);}} style={{display:"block",width:"100%",textAlign:"left",background:`${T.accent}12`,border:"none",color:T.accent,padding:"11px 14px",borderRadius:8,fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:T.font}}>🔑 Login / Sign Up</button>
+        <button onClick={()=>{window.location.href="/login.html";}} style={{display:"block",width:"100%",textAlign:"left",background:`${T.accent}12`,border:"none",color:T.accent,padding:"11px 14px",borderRadius:8,fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:T.font}}>🔑 Login / Sign Up</button>
       </div>}
     </nav>
   );
@@ -344,7 +344,7 @@ function PricingPage(){
   if(!isLoggedIn){
     sessionStorage.setItem('tb_after_login',link);
     alert('Please login or signup first — then your plan will activate automatically!');
-    go(PAGES.LOGIN);
+    window.location.href='/login.html';
     return;
   }
   window.open(link,'_blank');
