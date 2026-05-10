@@ -135,8 +135,23 @@ async function gen(){
       body={prompt:finalPrompt.length>29500?finalPrompt.substring(0,29500):finalPrompt};
     }
     const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-    if(!r.ok){const er=await r.json();throw new Error(er.error||'API Error: '+r.status);}
-    const d=await r.json();
+    let d;
+    try {
+      const txt = await r.text();
+      try {
+        d = JSON.parse(txt);
+      } catch(parseErr) {
+        // Server returned HTML/text instead of JSON (likely timeout or crash)
+        if(r.status===504||r.status===524) throw new Error('Request timed out. Try shorter input or try again.');
+        if(r.status===500) throw new Error('Server error. Please try again in a moment.');
+        if(r.status===429) throw new Error('Rate limit. Please wait a moment and try again.');
+        throw new Error('Server returned invalid response. Status: '+r.status+'. Please try again.');
+      }
+    } catch(e) {
+      if(e.message.includes('Request timed out')||e.message.includes('Rate limit')||e.message.includes('Server error')||e.message.includes('Server returned')){throw e;}
+      throw new Error('Network error: '+e.message);
+    }
+    if(!r.ok){throw new Error(d?.error||'API Error: '+r.status);}
     if(d.error)throw new Error(d.error);
     if(at.type==='image'||at.type==='upload'){
       co=d.image||'';
