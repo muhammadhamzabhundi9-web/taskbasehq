@@ -155,6 +155,14 @@ function Stars({n=5}){return <span style={{color:"#fbbf24",fontSize:12}}>{"★".
 function Pill({children,color}){return <span style={{background:`${color||T.accent}15`,color:color||T.accent,padding:"3px 9px",borderRadius:6,fontSize:10,fontWeight:700,whiteSpace:"nowrap",display:"inline-block"}}>{children}</span>;}
 function genTicketId(){const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let r="TB-";for(let i=0;i<6;i++)r+=c[Math.floor(Math.random()*c.length)];return r;}
 function Nav({page,go,setInstall}){
+  const[isLoggedIn,setIsLoggedIn]=useState(typeof window!=='undefined'?!!localStorage.getItem('tb_user_plan'):false);
+  useEffect(()=>{
+    const check=()=>setIsLoggedIn(!!localStorage.getItem('tb_user_plan'));
+    check();
+    window.addEventListener('storage',check);
+    const interval=setInterval(check,1000);
+    return()=>{window.removeEventListener('storage',check);clearInterval(interval);};
+  },[]);
   const[open,setOpen]=useState(false);
   const links=[{id:PAGES.HOME,label:"Home"},{id:PAGES.TOOLS,label:"All Tools"},{id:PAGES.PRICING,label:"Pricing"},{id:PAGES.FAQ,label:"FAQ"},{id:PAGES.SUPPORT,label:"Support"}];
   return(
@@ -260,9 +268,10 @@ function HomePage({go}){
         <p style={{color:T.green,fontSize:"clamp(16px,4vw,22px)",fontWeight:900,margin:"0 0 26px"}}>All for just $9.99/month.</p>
         <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginBottom:30}}>
           <button onClick={()=>{
-          if(isLoggedIn) window.location.href="/dashboard.html";
+          const lg=!!localStorage.getItem('tb_user_plan');
+          if(lg) window.location.href="/dashboard.html";
           else go(PAGES.PRICING);
-        }} style={{...bs(`linear-gradient(135deg,${T.accent},${T.cyan})`,`0 8px 30px ${T.accentGlow}`),padding:"15px 32px",fontSize:16}}>{isLoggedIn?'📊 Open Dashboard':'🚀 Start Free — 50 Credits'}</button>
+        }} style={{...bs(`linear-gradient(135deg,${T.accent},${T.cyan})`,`0 8px 30px ${T.accentGlow}`),padding:"15px 32px",fontSize:16}}>{(typeof window!=='undefined'&&!!localStorage.getItem('tb_user_plan'))?'📊 Open Dashboard':'🚀 Start Free — 50 Credits'}</button>
           <button onClick={()=>go(PAGES.TOOLS)} style={{...bs("rgba(255,255,255,0.06)"),border:`1px solid ${T.border}`,padding:"15px 28px",fontSize:15,fontWeight:700}}>See All Tools →</button>
         </div>
         <div style={{display:"flex",justifyContent:"center",gap:"clamp(16px,4vw,32px)",flexWrap:"wrap"}}>
@@ -300,9 +309,10 @@ function HomePage({go}){
       <h2 style={{color:"#fff",fontSize:24,fontWeight:900,margin:"0 0 8px"}}>Ready to Save $2,000+/Month?</h2>
       <p style={{color:T.muted,fontSize:14,margin:"0 0 18px"}}>50 free credits. No credit card. Cancel anytime.</p>
       <button onClick={()=>{
-        if(isLoggedIn) window.location.href="/dashboard.html";
+        const lg=!!localStorage.getItem('tb_user_plan');
+        if(lg) window.location.href="/dashboard.html";
         else go(PAGES.PRICING);
-      }} style={{...bs(`linear-gradient(135deg,${T.accent},${T.cyan})`,`0 8px 30px ${T.accentGlow}`),padding:"15px 36px",fontSize:16}}>{isLoggedIn?'📊 Open Dashboard':'🚀 Start Free — 50 Credits'}</button>
+      }} style={{...bs(`linear-gradient(135deg,${T.accent},${T.cyan})`,`0 8px 30px ${T.accentGlow}`),padding:"15px 36px",fontSize:16}}>{(typeof window!=='undefined'&&!!localStorage.getItem('tb_user_plan'))?'📊 Open Dashboard':'🚀 Start Free — 50 Credits'}</button>
     </section>
     <ToolModal tool={sel} onClose={()=>setSel(null)} go={go}/>
   </div>);
@@ -345,7 +355,7 @@ function PricingPage(){
         <div style={{display:"flex",alignItems:"baseline",gap:4,marginBottom:4}}><span style={{color:"#fff",fontSize:40,fontWeight:900}}>$0</span><span style={{color:T.muted,fontSize:14}}>to start</span></div>
         <p style={{color:T.muted,fontSize:12,margin:"0 0 18px"}}>50 credits — no card needed</p>
         {PLANS.free.features.map((f,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:8,padding:"5px 0"}}><span style={{color:T.green,fontSize:11}}>✓</span><span style={{color:T.muted,fontSize:12.5}}>{f}</span></div>)}
-        {!isLoggedIn && <button onClick={()=>window.location.href='/login.html'} style={{...bs("rgba(255,255,255,0.06)"),border:`1px solid ${T.border}`,width:"100%",padding:13,fontSize:14,marginTop:16}}>Get 50 Free Credits</button>}
+        {(typeof window==='undefined'||!localStorage.getItem('tb_user_plan')) && <button onClick={()=>window.location.href='/login.html'} style={{...bs("rgba(255,255,255,0.06)"),border:`1px solid ${T.border}`,width:"100%",padding:13,fontSize:14,marginTop:16}}>Get 50 Free Credits</button>}
       </div>
       <div style={{background:`${T.accent}08`,border:`2px solid ${T.accent}30`,borderRadius:18,padding:"24px 20px",position:"relative"}}>
         <div style={{position:"absolute",top:-12,left:"50%",transform:"translateX(-50%)",background:`linear-gradient(135deg,${T.accent},${T.cyan})`,color:"#fff",fontSize:10,fontWeight:800,padding:"4px 14px",borderRadius:20}}>⭐ RECOMMENDED</div>
