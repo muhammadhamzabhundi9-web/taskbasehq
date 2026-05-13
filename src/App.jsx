@@ -273,7 +273,7 @@ function HomePage({go}){
           <button onClick={()=>go(PAGES.TOOLS)} style={{...bs("rgba(255,255,255,0.06)"),border:`1px solid ${T.border}`,padding:"15px 28px",fontSize:15,fontWeight:700}}>See All Tools →</button>
         </div>
         <div style={{display:"flex",justifyContent:"center",gap:"clamp(16px,4vw,32px)",flexWrap:"wrap"}}>
-          {[{v:"46+",l:"AI Tools"},{v:"50K+",l:"Users"},{v:"97%",l:"Savings"},{v:"4.8★",l:"Rating"}].map((s,i)=><div key={i}><div style={{color:T.accent,fontSize:22,fontWeight:900}}>{s.v}</div><div style={{color:T.dim,fontSize:10,fontWeight:600}}>{s.l}</div></div>)}
+          {[{v:"46+",l:"AI Tools"},{v:"$9.99",l:"Per Month"},{v:"50",l:"Free Credits"},{v:"30-day",l:"Guarantee"}].map((s,i)=><div key={i}><div style={{color:T.accent,fontSize:22,fontWeight:900}}>{s.v}</div><div style={{color:T.dim,fontSize:10,fontWeight:600}}>{s.l}</div></div>)}
         </div>
       </div>
     </section>
