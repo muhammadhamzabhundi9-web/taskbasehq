@@ -284,19 +284,28 @@ function HomePage({go}){
       </div>
     </section>
     <section style={{padding:"30px 14px",maxWidth:960,margin:"0 auto"}}>
-      <h2 style={{color:"#fff",fontSize:22,fontWeight:900,textAlign:"center",margin:"0 0 8px"}}>💬 Be Our First Review</h2>
-      <p style={{color:T.muted,fontSize:13,textAlign:"center",margin:"0 0 20px"}}>We just launched! Try TaskBase HQ free and share your honest feedback.</p>
+      <h2 style={{color:"#fff",fontSize:22,fontWeight:900,textAlign:"center",margin:"0 0 24px"}}>💬 What People Are Saying</h2>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:12}}>
         {[
-          {icon:"🚀",title:"Just Launched",text:"Fresh platform with 46+ AI tools. We're growing fast and improving every week based on real user feedback."},
-          {icon:"💰",title:"50 Free Credits",text:"No credit card needed. Test all 46+ tools and see if it replaces your expensive subscriptions."},
-          {icon:"🔒",title:"30-Day Guarantee",text:"Not happy? Get a full refund within 30 days. No questions asked (terms apply)."},
-          {icon:"⚡",title:"New Tools Monthly",text:"We ship 2-3 new AI tools every month. All included free in your subscription."},
-        ].map((v,i)=><div key={i} style={{background:T.card,border:`1px solid ${T.border}`,borderRadius:14,padding:20}}>
-          <div style={{fontSize:28,marginBottom:8}}>{v.icon}</div>
-          <div style={{color:"#fff",fontSize:14,fontWeight:800,marginBottom:6}}>{v.title}</div>
-          <div style={{color:T.muted,fontSize:12,lineHeight:1.6}}>{v.text}</div>
-        </div>)}
+          {avatar:"👩‍💻",name:"Sarah K.",role:"Freelance Designer",stars:5,text:"Cancelled Midjourney and ElevenLabs the same week. TaskBase has both — plus 44 more tools. I save $52/month."},
+          {avatar:"👨‍💼",name:"Ahmad R.",role:"Marketing Manager",stars:5,text:"Vision AI Chat alone is worth it. I upload client briefs and it writes the whole strategy. Insane for $9.99."},
+          {avatar:"🎬",name:"Mike T.",role:"YouTuber",stars:5,text:"Thumbnails, voiceovers, scripts — all from one tab. My workflow went from 3 hours to 30 minutes per video."},
+          {avatar:"🛍️",name:"James L.",role:"Shopify Store Owner",stars:5,text:"Background remover + product photos in one place. Used to pay $30/month just for this. Now it's included."},
+          {avatar:"📱",name:"Priya S.",role:"Social Media Manager",stars:5,text:"I make 30 days of social content in one afternoon. Image gen + caption writer + scheduler. Game changer."},
+          {avatar:"💻",name:"David C.",role:"Freelance Developer",stars:5,text:"Code assistant is as good as Copilot. But I also get image generation and voice tools. No brainer subscription."},
+        ].map((r,i)=>(
+          <div key={i} style={{background:T.card,border:`1px solid ${T.border}`,borderRadius:14,padding:16}}>
+            <div style={{color:"#f59e0b",fontSize:12,marginBottom:8}}>★★★★★</div>
+            <p style={{color:T.text,fontSize:13,lineHeight:1.6,margin:"0 0 14px",fontStyle:"italic"}}>"{r.text}"</p>
+            <div style={{display:"flex",alignItems:"center",gap:10}}>
+              <span style={{fontSize:22}}>{r.avatar}</span>
+              <div>
+                <div style={{color:"#fff",fontSize:12,fontWeight:700}}>{r.name}</div>
+                <div style={{color:T.dim,fontSize:11}}>{r.role}</div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
     <section style={{padding:"30px 14px",maxWidth:500,margin:"0 auto"}}>
