@@ -109,14 +109,7 @@ const TOOLS = [
   { id:55, name:"AI Try-On Clothes", desc:"See yourself in any outfit before buying.", category:"image", icon:"👗", marketPrice:20, features:["Virtual try-on","Any clothing","Realistic fit","Multiple angles","E-commerce ready"], badge:"⏳ Coming Soon", comingSoon:true, users:"19K+", rating:4.8 },
   { id:56, name:"AI Meme & Reel Maker", desc:"Viral memes, reels, TikTok content with auto-captions.", category:"video", icon:"😂", marketPrice:10, features:["Trending templates","Auto captions","Viral formats","Direct sharing","Branding"], badge:"⏳ Coming Soon", comingSoon:true, users:"28K+", rating:4.8 },
 ];
-const REVIEWS = [
-  { name:"Sarah K.", role:"Freelance Writer, USA", text:"Finally — one tool that replaces all my AI subscriptions. The image generator and content writer alone save me $100+/month.", avatar:"👩‍💻", stars:5, hl:true },
-  { name:"Ahmed R.", role:"Digital Marketer", text:"Vision AI Chat is exactly what I needed. Upload a PDF, ask questions, get answers. Way cheaper than ChatGPT Plus.", avatar:"📱", stars:5, hl:true },
-  { name:"Mike T.", role:"Content Creator, UK", text:"The AI Voice Generator quality is unreal for $9.99. I was paying $22/month for ElevenLabs just for this.", avatar:"🎬", stars:5, hl:true },
-  { name:"Priya S.", role:"Social Media Manager", text:"46+ tools and I actually use at least 10 of them regularly. The value is insane compared to paying separately.", avatar:"🎭", stars:5 },
-  { name:"James L.", role:"E-commerce Seller", text:"Background remover + product photography AI = no more expensive photo shoots. Pays for itself in the first use.", avatar:"🛒", stars:5 },
-  { name:"Fatima H.", role:"Blogger & Podcaster", text:"Started with 50 free credits, was hooked in 10 minutes. Upgraded same day. Best $9.99 I spend monthly.", avatar:"🎙️", stars:5 },
-];
+const REVIEWS = [];
 const FAQ = [
   { q:"What do I get?", a:"Unlimited access to ALL 46+ AI tools — image generator, video creator, voice cloner, content writer, code assistant, and more. One subscription, no hidden costs." },
   { q:"How do free credits work?", a:"You get 50 free credits on signup — no credit card needed. Each AI generation uses 1 credit. When credits run out, upgrade for unlimited access to all tools." },
@@ -210,7 +203,7 @@ function ToolCard({tool,onClick}){
         <div style={{display:"flex",alignItems:"center",gap:10}}>
           <span style={{fontSize:30}}>{tool.icon}</span>
           <div><h3 style={{color:"#fff",fontSize:15,fontWeight:800,margin:0,lineHeight:1.2}}>{tool.name}</h3>
-          <div style={{display:"flex",alignItems:"center",gap:6,marginTop:3}}><Stars/><span style={{color:T.dim,fontSize:10}}>{tool.rating}</span><span style={{color:T.dim,fontSize:10}}>•</span><span style={{color:T.dim,fontSize:10}}>{tool.users} users</span></div></div>
+          </div>
         </div>
         {!tool.comingSoon&&<Pill color={tool.trending?T.orange:T.accent}>{tool.badge}</Pill>}
       </div>
@@ -233,7 +226,7 @@ function ToolModal({tool,onClose,go}){
       <div onClick={e=>e.stopPropagation()} style={{background:`linear-gradient(180deg,#111827 0%,${T.bg} 100%)`,borderRadius:"22px 22px 0 0",width:"100%",maxWidth:460,maxHeight:"82vh",overflowY:"auto",padding:"20px 18px 30px",animation:"modalUp 0.3s cubic-bezier(0.16,1,0.3,1)"}}>
         <div style={{width:36,height:4,background:"#334155",borderRadius:2,margin:"0 auto 18px"}}/>
         <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:6}}><span style={{fontSize:44}}>{tool.icon}</span><div>{!tool.comingSoon&&<Pill color={tool.trending?T.orange:T.accent}>{tool.badge}</Pill>}<h2 style={{color:"#fff",fontSize:20,fontWeight:900,margin:"6px 0 0"}}>{tool.name}</h2></div></div>
-        <div style={{display:"flex",gap:12,margin:"10px 0 14px"}}><Stars/><span style={{color:T.muted,fontSize:12}}>{tool.rating} • {tool.users} users</span></div>
+        
         <p style={{color:T.muted,fontSize:14,lineHeight:1.65,margin:"0 0 20px"}}>{tool.desc}</p>
         <div style={{marginBottom:20}}><div style={{color:T.text,fontSize:13,fontWeight:700,marginBottom:10}}>All Features:</div>
         {tool.features.map((f,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 0",borderBottom:i<tool.features.length-1?"1px solid rgba(255,255,255,0.04)":"none"}}><span style={{width:22,height:22,borderRadius:6,background:`${T.green}15`,color:T.green,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,flexShrink:0}}>✓</span><span style={{color:"#cbd5e1",fontSize:13.5}}>{f}</span></div>)}</div>
@@ -291,9 +284,19 @@ function HomePage({go}){
       </div>
     </section>
     <section style={{padding:"30px 14px",maxWidth:960,margin:"0 auto"}}>
-      <h2 style={{color:"#fff",fontSize:22,fontWeight:900,textAlign:"center",margin:"0 0 24px"}}>💬 What Users Say</h2>
+      <h2 style={{color:"#fff",fontSize:22,fontWeight:900,textAlign:"center",margin:"0 0 8px"}}>💬 Be Our First Review</h2>
+      <p style={{color:T.muted,fontSize:13,textAlign:"center",margin:"0 0 20px"}}>We just launched! Try TaskBase HQ free and share your honest feedback.</p>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:12}}>
-        {REVIEWS.map((r,i)=><div key={i} style={{background:r.hl?`${T.accent}06`:T.card,border:`1px solid ${r.hl?T.accent+"18":T.border}`,borderRadius:14,padding:16}}><Stars n={r.stars}/><p style={{color:T.text,fontSize:13,lineHeight:1.6,margin:"10px 0 14px",fontStyle:"italic"}}>"{r.text}"</p><div style={{display:"flex",alignItems:"center",gap:10}}><span style={{fontSize:22}}>{r.avatar}</span><div><div style={{color:"#fff",fontSize:12,fontWeight:700}}>{r.name}</div><div style={{color:T.dim,fontSize:11}}>{r.role}</div></div></div></div>)}
+        {[
+          {icon:"🚀",title:"Just Launched",text:"Fresh platform with 46+ AI tools. We're growing fast and improving every week based on real user feedback."},
+          {icon:"💰",title:"50 Free Credits",text:"No credit card needed. Test all 46+ tools and see if it replaces your expensive subscriptions."},
+          {icon:"🔒",title:"30-Day Guarantee",text:"Not happy? Get a full refund within 30 days. No questions asked (terms apply)."},
+          {icon:"⚡",title:"New Tools Monthly",text:"We ship 2-3 new AI tools every month. All included free in your subscription."},
+        ].map((v,i)=><div key={i} style={{background:T.card,border:`1px solid ${T.border}`,borderRadius:14,padding:20}}>
+          <div style={{fontSize:28,marginBottom:8}}>{v.icon}</div>
+          <div style={{color:"#fff",fontSize:14,fontWeight:800,marginBottom:6}}>{v.title}</div>
+          <div style={{color:T.muted,fontSize:12,lineHeight:1.6}}>{v.text}</div>
+        </div>)}
       </div>
     </section>
     <section style={{padding:"30px 14px",maxWidth:500,margin:"0 auto"}}>
