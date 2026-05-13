@@ -316,7 +316,7 @@ function HomePage({go}){
       </div>
     </section>
     <section style={{margin:"24px 14px 30px",padding:"32px 20px",textAlign:"center",background:`${T.accent}08`,border:`1px solid ${T.accent}18`,borderRadius:20}}>
-      <h2 style={{color:"#fff",fontSize:24,fontWeight:900,margin:"0 0 8px"}}>🚀 Just Launched — Try Free Today</h2>
+      <h2 style={{color:"#fff",fontSize:24,fontWeight:900,margin:"0 0 8px"}}>Ready to Save $111/Month on AI Tools?</h2>
       <p style={{color:T.muted,fontSize:14,margin:"0 0 18px"}}>50 free credits. No credit card. Cancel anytime.</p>
       <button onClick={()=>{
         const lg=!!localStorage.getItem('tb_user_plan');
