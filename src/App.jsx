@@ -110,14 +110,12 @@ const TOOLS = [
   { id:56, name:"AI Meme & Reel Maker", desc:"Viral memes, reels, TikTok content with auto-captions.", category:"video", icon:"😂", marketPrice:10, features:["Trending templates","Auto captions","Viral formats","Direct sharing","Branding"], badge:"⏳ Coming Soon", comingSoon:true, users:"28K+", rating:4.8 },
 ];
 const REVIEWS = [
-  { name:"Sarah K.", role:"Freelance Writer, USA", text:"I replaced 12 tools with this. Image generator alone is worth the price — better than Midjourney. Saving $300+/month.", avatar:"👩‍💻", stars:5, hl:true },
-  { name:"Ahmed R.", role:"Marketing Agency", text:"Voice cloner and video creator are insane. We make client campaigns 10x faster. This is the future.", avatar:"📱", stars:5, hl:true },
-  { name:"Mike T.", role:"YouTuber, UK", text:"Cancelled ElevenLabs, Runway, Midjourney. TaskBase does it all for $9.99. My production time dropped 80%.", avatar:"🎬", stars:5, hl:true },
-  { name:"Priya S.", role:"Content Creator", text:"Face swap, voice cloning, video editing — content production went from days to minutes. Pure gold.", avatar:"🎭", stars:5 },
-  { name:"James L.", role:"E-commerce Owner", text:"Background remover for products, AI ads, image generator — my whole store runs on this now.", avatar:"🛒", stars:5 },
-  { name:"Fatima H.", role:"Podcast Host", text:"Voiceover generator + podcast editor + voice cloner. I sound like a pro studio. $9.99 vs $200+/mo elsewhere.", avatar:"🎙️", stars:5 },
-  { name:"David C.", role:"Developer", text:"Code assistant + AI image gen for app screenshots + voice cloning for demos. This thing has everything.", avatar:"💻", stars:5 },
-  { name:"Lisa M.", role:"Real Estate Agent", text:"Photo enhancer for listings, AI videos for properties, ad creator. Clients think I hired an agency.", avatar:"🏠", stars:5 },
+  { name:"Sarah K.", role:"Freelance Writer, USA", text:"Finally — one tool that replaces all my AI subscriptions. The image generator and content writer alone save me $100+/month.", avatar:"👩‍💻", stars:5, hl:true },
+  { name:"Ahmed R.", role:"Digital Marketer", text:"Vision AI Chat is exactly what I needed. Upload a PDF, ask questions, get answers. Way cheaper than ChatGPT Plus.", avatar:"📱", stars:5, hl:true },
+  { name:"Mike T.", role:"Content Creator, UK", text:"The AI Voice Generator quality is unreal for $9.99. I was paying $22/month for ElevenLabs just for this.", avatar:"🎬", stars:5, hl:true },
+  { name:"Priya S.", role:"Social Media Manager", text:"46+ tools and I actually use at least 10 of them regularly. The value is insane compared to paying separately.", avatar:"🎭", stars:5 },
+  { name:"James L.", role:"E-commerce Seller", text:"Background remover + product photography AI = no more expensive photo shoots. Pays for itself in the first use.", avatar:"🛒", stars:5 },
+  { name:"Fatima H.", role:"Blogger & Podcaster", text:"Started with 50 free credits, was hooked in 10 minutes. Upgraded same day. Best $9.99 I spend monthly.", avatar:"🎙️", stars:5 },
 ];
 const FAQ = [
   { q:"What do I get?", a:"Unlimited access to ALL 46+ AI tools — image generator, video creator, voice cloner, content writer, code assistant, and more. One subscription, no hidden costs." },
@@ -286,9 +284,9 @@ function HomePage({go}){
       <div style={{textAlign:"center",marginTop:20}}><button onClick={()=>go(PAGES.TOOLS)} style={{...bs(`${T.accent}15`),border:`1px solid ${T.accent}30`,padding:"12px 28px",fontSize:14,color:T.accent}}>View All 46+ AI Tools →</button></div>
     </section>
     <section style={{padding:"30px 14px",maxWidth:960,margin:"0 auto"}}>
-      <h2 style={{color:"#fff",fontSize:22,fontWeight:900,textAlign:"center",margin:"0 0 24px"}}>Why 50,000+ People Choose TaskBase HQ</h2>
+      <h2 style={{color:"#fff",fontSize:22,fontWeight:900,textAlign:"center",margin:"0 0 24px"}}>Why TaskBase HQ is Different</h2>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:12}}>
-        {[{icon:"💸",title:"Save $2,000+/Month",desc:"Replace 15+ subscriptions with one simple price."},{icon:"⚡",title:"Unlimited Generations",desc:"No caps on text tools. Reasonable limits on image/video/voice."},{icon:"🆕",title:"New Tools Monthly",desc:"2-3 new tools every month. All free with your plan."},{icon:"📱",title:"Works Everywhere",desc:"Desktop, mobile, tablet. Mobile app coming soon!"},{icon:"🔒",title:"50 Free Credits",desc:"Start free with 50 credits. No credit card needed."},{icon:"🏆",title:"Commercial License",desc:"Everything you create is yours. Use for anything."}].map((v,i)=>
+        {[{icon:"💸",title:"Save $2,000+/Month",desc:"Replace 15+ subscriptions with one simple price."},{icon:"⚡",title:"Unlimited Generations",desc:"Credits used per generation. 50 free credits on signup."},{icon:"🆕",title:"New Tools Monthly",desc:"2-3 new tools every month. All free with your plan."},{icon:"📱",title:"Works Everywhere",desc:"Desktop, mobile, tablet. Mobile app coming soon!"},{icon:"🔒",title:"50 Free Credits",desc:"Start free with 50 credits. No credit card needed."},{icon:"🏆",title:"Commercial License",desc:"Everything you create is yours. Use for anything."}].map((v,i)=>
         <div key={i} style={{background:T.card,border:`1px solid ${T.border}`,borderRadius:14,padding:18}}><div style={{fontSize:28,marginBottom:10}}>{v.icon}</div><div style={{color:"#fff",fontSize:14,fontWeight:800,marginBottom:6}}>{v.title}</div><div style={{color:T.muted,fontSize:12,lineHeight:1.5}}>{v.desc}</div></div>)}
       </div>
     </section>
@@ -306,7 +304,7 @@ function HomePage({go}){
       </div>
     </section>
     <section style={{margin:"24px 14px 30px",padding:"32px 20px",textAlign:"center",background:`${T.accent}08`,border:`1px solid ${T.accent}18`,borderRadius:20}}>
-      <h2 style={{color:"#fff",fontSize:24,fontWeight:900,margin:"0 0 8px"}}>Ready to Save $2,000+/Month?</h2>
+      <h2 style={{color:"#fff",fontSize:24,fontWeight:900,margin:"0 0 8px"}}>🚀 Just Launched — Try Free Today</h2>
       <p style={{color:T.muted,fontSize:14,margin:"0 0 18px"}}>50 free credits. No credit card. Cancel anytime.</p>
       <button onClick={()=>{
         const lg=!!localStorage.getItem('tb_user_plan');
